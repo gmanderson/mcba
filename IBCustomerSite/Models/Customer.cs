@@ -9,7 +9,7 @@ namespace IBCustomerSite.Models
     {
         // CustomerID must be 4 digits
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [StringLength(4, MinimumLength = 4)]
+        [Range(1000, 9999)]
         public int CustomerID { get; set; }
 
         [Required, StringLength(50)]
