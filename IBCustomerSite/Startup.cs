@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using IBCustomerSite.Data;
 
 namespace IBCustomerSite
 {
@@ -24,6 +26,14 @@ namespace IBCustomerSite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<MCBAContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString(nameof(MCBAContext)));
+
+                // Enable lazy loading.
+                options.UseLazyLoadingProxies();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
