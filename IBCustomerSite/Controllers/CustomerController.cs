@@ -13,6 +13,7 @@ namespace IBCustomerSite.Controllers
     public class CustomerController : Controller
     {
         private readonly MCBAContext _context;
+        private readonly int CustomerID = 2100;
 
         public CustomerController(MCBAContext context)
         {
@@ -22,7 +23,9 @@ namespace IBCustomerSite.Controllers
         // GET: Customer
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Customers.ToListAsync());
+            var customer = await _context.Customers.FindAsync(CustomerID);
+
+            return View(customer);
         }
 
         // GET: Customer/Details/5
@@ -149,5 +152,6 @@ namespace IBCustomerSite.Controllers
         {
             return _context.Customers.Any(e => e.CustomerID == id);
         }
+
     }
 }
