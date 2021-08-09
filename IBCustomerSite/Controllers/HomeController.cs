@@ -51,36 +51,40 @@ namespace IBCustomerSite.Controllers
                 ) ;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Deposit()
-        {
-            var account = await _context.Accounts.FindAsync(4100);
 
-            if (account.Transactions.Amount <= 0)
-            {
-                ModelState.AddModelError(nameof(viewModel.Amount), "Amount must be positive.");
-                return View(viewModel);
-            }
-            if (viewModel.Amount.HasMoreThanTwoDecimalPlaces())
-            {
-                ModelState.AddModelError(nameof(viewModel.Amount), "Amount cannot have more than 2 decimal places.");
-                return View(viewModel);
-            }
+        // POST - DEPOSIT
+        [HttpPost]
+        public async Task<IActionResult> Deposit(DepositViewModel viewModel)
+        {
+            viewModel.Account = await _context.Accounts.FindAsync(viewModel.AccountNumber);
+
+                        //if (account.Transactions.Amount <= 0)
+            //{
+            //    ModelState.AddModelError(nameof(viewModel.Amount), "Amount must be positive.");
+            //    return View(viewModel);
+            //}
+            //if (viewModel.Amount.HasMoreThanTwoDecimalPlaces())
+            //{
+            //    ModelState.AddModelError(nameof(viewModel.Amount), "Amount cannot have more than 2 decimal places.");
+            //    return View(viewModel);
+            //}
 
             // Note this code could be moved out of the controller, e.g., into the Model.
-            viewModel.Account.Balance += viewModel.Amount;
-            viewModel.Account.Transactions.Add(
+
+                        viewModel.Account.Transactions.Add(
                 new Transaction
                 {
-                    TransactionType = TransactionType.Deposit,
+                    TransactionType = 'D',
                     Amount = viewModel.Amount,
-                    TransactionTimeUtc = DateTime.UtcNow
+                    TransactionTimeUtc = DateTime.UtcNow,
+                    Comment = viewModel.Comment
                 });
 
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
+
 
         // GET ACCOUNT
         public async Task<IActionResult> Statement()
