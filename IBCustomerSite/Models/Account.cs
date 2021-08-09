@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace IBCustomerSite.Models
 {
@@ -22,5 +23,20 @@ namespace IBCustomerSite.Models
         public virtual List<Transaction> Transactions { get; set; }
 
         public virtual List<BillPay> BillPays { get; set; }
+
+
+        public decimal CalculateBalance()
+        {
+            decimal balance = 0;
+            Transactions.ToList().ForEach(transaction => { balance += transaction.Amount; });
+
+            //foreach(Transaction transaction in Transactions)
+            //{
+            //    balance += transaction.Amount;
+            //}
+
+            return balance;
+        }
     }
+
 }
