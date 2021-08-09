@@ -1,0 +1,48 @@
+@model Account
+
+@{
+    ViewData["Title"] = "My Statements";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Transactions[0].TransactionTimeUtc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transactions[0].TransactionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transactions[0].Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transactions[0].DestinationAccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transactions[0].Amount)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Transactions) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionTimeUtc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DestinationAccountNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+        </tr>
+        }
+            </tbody>
+</table>
