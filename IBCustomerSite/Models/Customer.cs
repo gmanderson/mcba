@@ -32,7 +32,7 @@ namespace IBCustomerSite.Models
         [StringLength(3, MinimumLength = 2)]
         public string State { get; set; }
 
-        [RegularExpression(@"[1-9]{4}",
+        [RegularExpression(@"[0-9]{4}",
             ErrorMessage = "Must be a 4 digit number")]
         [StringLength(4)]
         public string Postcode { get; set; }
