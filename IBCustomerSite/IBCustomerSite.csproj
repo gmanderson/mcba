@@ -16,6 +16,9 @@
     <None Remove="Views\Login\" />
     <None Remove="SimpleHashing" />
     <None Remove="Filters\" />
+    <None Remove="X.PagedList" />
+    <None Remove="Newtonsoft.Json" />
+    <None Remove="X.PagedList.Mvc.Core" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
@@ -34,5 +37,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.8" />
     <PackageReference Include="SimpleHashing" Version="2.0.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.1.0" />
   </ItemGroup>
 </Project>

@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 using IBCustomerSite.Models;
 using IBCustomerSite.ViewModels;
 using IBCustomerSite.Data;
+using X.PagedList;
+using Newtonsoft.Json;
 
 namespace IBCustomerSite.Controllers
 {
@@ -17,6 +19,8 @@ namespace IBCustomerSite.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly MCBAContext _context;
         private int CustomerID => HttpContext.Session.GetInt32(nameof(Customer.CustomerID)).Value;
+        private const string SessionKey_Customer = "";
+
 
         public HomeController(ILogger<HomeController> logger, MCBAContext context)
         {
@@ -244,13 +248,56 @@ namespace IBCustomerSite.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-        // GET ACCOUNT
-        public async Task<IActionResult> Statement()
+        // GET Statement Index
+        public async Task<IActionResult> StatementIndex()
         {
-            int accountNumber = 4100;
-            var account = await _context.Accounts.FindAsync(accountNumber);
-            return View(account);
+            var customer = await _context.Customers.FindAsync(CustomerID);
+            var accounts = customer.Accounts;
+
+            return View(accounts);
+        }
+
+        // POST Statement Index
+        [HttpPost]
+        public async Task<IActionResult> StatementIndexToView(int AccountNumber)
+        {
+            var account = await _context.Accounts.FindAsync(AccountNumber);
+            if (account == null)
+                return NotFound();
+
+
+            //// Store a complex object in the session via JSON serialisation.
+            var accountJson = JsonConvert.SerializeObject(account, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+            HttpContext.Session.SetString(SessionKey_Customer, accountJson);
+
+            return RedirectToAction(nameof(Statement));
+        }
+
+
+        // GET Statement
+        public async Task<IActionResult> Statement(int? page = 1)
+        {
+
+            var accountJson = HttpContext.Session.GetString(SessionKey_Customer);
+            if (accountJson == null)
+            {
+                return RedirectToAction(nameof(Index)); // OR return BadRequest();
+            }
+
+            //// Retrieve complex object from the session via JSON deserialisation.
+            var account = JsonConvert.DeserializeObject<Account>(accountJson);
+
+            ViewBag.Account = account;
+
+            // Page the orders, maximum of 4 per page.
+            const int pageSize = 4;
+            IPagedList<Transaction> pagedList = await _context.Transactions.Where(x => x.AccountNumber == account.AccountNumber).
+                OrderByDescending(x => x.TransactionTimeUtc).ToPagedListAsync(page, pageSize);
+
+            return View(pagedList);
         }
     }
 }
