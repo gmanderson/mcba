@@ -35,7 +35,8 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
-                <input type="submit" asp-action="Deposit" value="Deposit" class="btn btn-primary" />
+                <input type="hidden" asp-for="Accounts" value=@Model.Accounts />
+                <input type="submit" asp-action="DepositConfirmation" value="Deposit" class="btn btn-primary" />
             </div>
         </form>
     </div>

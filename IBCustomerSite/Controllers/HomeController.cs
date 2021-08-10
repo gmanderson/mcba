@@ -51,19 +51,11 @@ namespace IBCustomerSite.Controllers
                 ) ;
         }
 
-        // GET DEPOSIT
-        public async Task<IActionResult> Deposit2(DepositViewModel viewModel)
-        {
-
-            return View(viewModel);
-        }
-
         // GET CONFIRMATION
-        public IActionResult Confirmation(DepositViewModel viewModel)
+        public IActionResult DepositConfirmation(DepositViewModel viewModel)
         {
             return View(viewModel);
         }
-
 
         // POST - DEPOSIT
         [HttpPost]
@@ -71,11 +63,11 @@ namespace IBCustomerSite.Controllers
         {
             viewModel.Account = await _context.Accounts.FindAsync(viewModel.AccountNumber);
 
-            //if (viewModel.Amount <= 0)
-            //{
-            //    ModelState.AddModelError(nameof(viewModel.Amount), "Amount must be positive.");
-            //    return View(viewModel);
-            //}
+            if (viewModel.Amount <= 0)
+            {
+                ModelState.AddModelError(nameof(viewModel.Amount), "Amount must be positive.");
+                return View(viewModel);
+            }
             //if (viewModel.Amount.HasMoreThanTwoDecimalPlaces())
             //{
             //    ModelState.AddModelError(nameof(viewModel.Amount), "Amount cannot have more than 2 decimal places.");
@@ -110,6 +102,12 @@ namespace IBCustomerSite.Controllers
                 );
         }
 
+        // GET CONFIRMATION
+        public IActionResult WithdrawalConfirmation(DepositViewModel viewModel)
+        {
+            return View(viewModel);
+        }
+
 
         // POST - WITHDRAWAL
         [HttpPost]
@@ -117,11 +115,17 @@ namespace IBCustomerSite.Controllers
         {
             viewModel.Account = await _context.Accounts.FindAsync(viewModel.AccountNumber);
 
-            //if (account.Transactions.Amount <= 0)
-            //{
-            //    ModelState.AddModelError(nameof(viewModel.Amount), "Amount must be positive.");
-            //    return View(viewModel);
-            //}
+            if (viewModel.Amount <= 0)
+            {
+                ModelState.AddModelError(nameof(viewModel.Amount), "Amount must be positive.");
+                return View(viewModel);
+            }
+            if (viewModel.HasAdequateBalance(viewModel.Amount)) // NEED TO INCLUDE SERVICE FEE
+            {
+                ModelState.AddModelError(nameof(viewModel.Amount), "Amount must not exceed available balance.");
+                return View(viewModel);
+            }
+
             //if (viewModel.Amount.HasMoreThanTwoDecimalPlaces())
             //{
             //    ModelState.AddModelError(nameof(viewModel.Amount), "Amount cannot have more than 2 decimal places.");
@@ -168,6 +172,12 @@ namespace IBCustomerSite.Controllers
                 );
         }
 
+        // GET CONFIRMATION
+        public IActionResult TransferConfirmation(TransferViewModel viewModel)
+        {
+            return View(viewModel);
+        }
+
 
         // POST - TRANSFER
         [HttpPost]
@@ -176,11 +186,17 @@ namespace IBCustomerSite.Controllers
             viewModel.SourceAccount = await _context.Accounts.FindAsync(viewModel.SourceAccountNumber);
             viewModel.DestinationAccount = await _context.Accounts.FindAsync(viewModel.DestinationAccountNumber);
 
-            //if (account.Transactions.Amount <= 0)
-            //{
-            //    ModelState.AddModelError(nameof(viewModel.Amount), "Amount must be positive.");
-            //    return View(viewModel);
-            //}
+            if (viewModel.Amount <= 0)
+            {
+                ModelState.AddModelError(nameof(viewModel.Amount), "Amount must be positive.");
+                return View(viewModel);
+            }
+            if (viewModel.HasAdequateBalance(viewModel.Amount)) // NEED TO INCLUDE SERVICE FEE
+            {
+                ModelState.AddModelError(nameof(viewModel.Amount), "Amount must not exceed available balance.");
+                return View(viewModel);
+            }
+
             //if (viewModel.Amount.HasMoreThanTwoDecimalPlaces())
             //{
             //    ModelState.AddModelError(nameof(viewModel.Amount), "Amount cannot have more than 2 decimal places.");

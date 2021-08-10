@@ -42,7 +42,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
-                <input type="submit" value="Transfer" class="btn btn-primary" />
+                <input type="hidden" asp-for="Accounts" value=@Model.Accounts />
+                <input type="submit" asp-action="TransferConfirmation" value="Transfer" class="btn btn-primary" />
+                <button asp-action="Index" class="btn btn-primary">Back to List</button>
             </div>
         </form>
     </div>

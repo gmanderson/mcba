@@ -13,6 +13,8 @@ namespace IBCustomerSite.ViewModels
         public string Comment { get; set; }
         private readonly int freeTransactionLimit = 4;
         private readonly decimal transferFee = 0.2M;
+        private readonly decimal minimumBalanceChecking = 200M;
+        private readonly decimal minimumBalanceSavings = 0M;
 
         public bool HasServiceCharge()
         {
@@ -42,6 +44,30 @@ namespace IBCustomerSite.ViewModels
         public decimal AddTransferFee()
         {
             return transferFee;
+        }
+
+        // Applies minimum balance by account type
+        public decimal MinimumBalanceByAccount()
+        {
+            switch (SourceAccount.AccountType)
+            {
+                case 'S':
+                    return minimumBalanceSavings;
+                case 'C':
+                    return minimumBalanceChecking;
+                default:
+                    return 0;
+            }
+        }
+
+        // Check if balance is adequate
+        public bool HasAdequateBalance(decimal totalAmount)
+        {
+            if (totalAmount > (SourceAccount.CalculateBalance() - MinimumBalanceByAccount()))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
