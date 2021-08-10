@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using IBCustomerSite.Models;
 using IBCustomerSite.ViewModels;
@@ -15,7 +16,7 @@ namespace IBCustomerSite.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly MCBAContext _context;
-        private readonly int CustomerID = 2100;
+        private int CustomerID => HttpContext.Session.GetInt32(nameof(Customer.CustomerID)).Value;
 
         public HomeController(ILogger<HomeController> logger, MCBAContext context)
         {
