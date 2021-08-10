@@ -51,6 +51,19 @@ namespace IBCustomerSite.Controllers
                 ) ;
         }
 
+        // GET DEPOSIT
+        public async Task<IActionResult> Deposit2(DepositViewModel viewModel)
+        {
+
+            return View(viewModel);
+        }
+
+        // GET CONFIRMATION
+        public IActionResult Confirmation(DepositViewModel viewModel)
+        {
+            return View(viewModel);
+        }
+
 
         // POST - DEPOSIT
         [HttpPost]
@@ -58,7 +71,7 @@ namespace IBCustomerSite.Controllers
         {
             viewModel.Account = await _context.Accounts.FindAsync(viewModel.AccountNumber);
 
-                        //if (account.Transactions.Amount <= 0)
+            //if (viewModel.Amount <= 0)
             //{
             //    ModelState.AddModelError(nameof(viewModel.Amount), "Amount must be positive.");
             //    return View(viewModel);
@@ -71,7 +84,7 @@ namespace IBCustomerSite.Controllers
 
             // Note this code could be moved out of the controller, e.g., into the Model.
 
-                        viewModel.Account.Transactions.Add(
+            viewModel.Account.Transactions.Add(
                 new Transaction
                 {
                     TransactionType = 'D',
@@ -118,13 +131,25 @@ namespace IBCustomerSite.Controllers
             // Note this code could be moved out of the controller, e.g., into the Model.
 
             viewModel.Account.Transactions.Add(
-    new Transaction
-    {
-        TransactionType = 'W',
-        Amount = viewModel.Amount,
-        TransactionTimeUtc = DateTime.UtcNow,
-        Comment = viewModel.Comment
-    });
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    Amount = viewModel.Amount,
+                    TransactionTimeUtc = DateTime.UtcNow,
+                    Comment = viewModel.Comment
+                });
+
+            if (viewModel.HasServiceCharge())
+            {
+                viewModel.Account.Transactions.Add(
+                new Transaction
+                {
+                    TransactionType = 'S',
+                    Amount = viewModel.AddAtmWithdrawalFee(),
+                    TransactionTimeUtc = DateTime.UtcNow,
+                    Comment = viewModel.Comment
+                });
+            }
 
             await _context.SaveChangesAsync();
 
@@ -165,17 +190,14 @@ namespace IBCustomerSite.Controllers
             // Note this code could be moved out of the controller, e.g., into the Model.
 
             viewModel.SourceAccount.Transactions.Add(
-    new Transaction
-    {
-        TransactionType = 'T',
-        Amount = viewModel.Amount,
-        TransactionTimeUtc = DateTime.UtcNow,
-        Comment = viewModel.Comment,
-        DestinationAccountNumber = viewModel.DestinationAccountNumber
-    });
-
-
-            
+                new Transaction
+                {
+                    TransactionType = 'T',
+                    Amount = viewModel.Amount,
+                    TransactionTimeUtc = DateTime.UtcNow,
+                    Comment = viewModel.Comment,
+                    DestinationAccountNumber = viewModel.DestinationAccountNumber
+                });
 
             viewModel.DestinationAccount.Transactions.Add(
                 new Transaction
@@ -185,6 +207,18 @@ namespace IBCustomerSite.Controllers
                 TransactionTimeUtc = DateTime.UtcNow,
                 Comment = viewModel.Comment
              });
+
+            if (viewModel.HasServiceCharge())
+            {
+                viewModel.SourceAccount.Transactions.Add(
+                new Transaction
+                {
+                    TransactionType = 'S',
+                    Amount = viewModel.AddTransferFee(),
+                    TransactionTimeUtc = DateTime.UtcNow,
+                    Comment = viewModel.Comment
+                });
+            }
 
 
             await _context.SaveChangesAsync();
