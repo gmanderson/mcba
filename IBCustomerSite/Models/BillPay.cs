@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IBCustomerSite.Models
 {
+
     public class BillPay
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -30,5 +31,21 @@ namespace IBCustomerSite.Models
         [Required]
         public char Period { get; set; }
 
+        public string PeriodNames(char period)
+        {
+            switch (period)
+            {
+                case 'M':
+                    return "Monthly";
+                case 'Q':
+                    return "Quarterly";
+                case 'Y':
+                    return "Yearly";
+                case 'O':
+                    return "One off";
+                default:
+                    return "";
+            }
+        }
     }
 }
