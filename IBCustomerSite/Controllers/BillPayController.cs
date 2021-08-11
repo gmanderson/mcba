@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace IBCustomerSite.Controllers
 {
@@ -20,9 +21,22 @@ namespace IBCustomerSite.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var customer = await _context.Customers.FindAsync(CustomerID);
+            var accounts = customer.Accounts;
+
+            List<BillPay> billpays = new List<BillPay>();
+            foreach(var account in accounts)
+            {
+                billpays.AddRange(_context.BillPays.Where(x => x.AccountNumber == account.AccountNumber).ToList());
+            }
+            
+            return View(new BillPayViewModel
+            {
+                BillPays = billpays
+            }
+                ) ;
         }
 
         public async Task<IActionResult> Create()
@@ -40,8 +54,19 @@ namespace IBCustomerSite.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AccountNumber,PayeeID,Amount,ScheduleTimeUtc,Period")] BillPayCreateModel viewModel)
+        public async Task<IActionResult> Create([Bind("Accounts,AccountNumber,PayeeID,Amount,ScheduleTimeUtc,Period")] BillPayCreateModel viewModel)
         {
+            //if(viewModel.Payees == null) // NEEDS TO BE FIXED
+            //{
+            //    return RedirectToAction("Privacy", "Home");
+            //}
+
+            if (viewModel.Amount <= 0)
+            {
+                ModelState.AddModelError(nameof(viewModel.Amount), "Amount must be positive.");
+                return View(viewModel);
+            }
+
             BillPay billPay = new BillPay
             {
                 AccountNumber = viewModel.AccountNumber,
@@ -57,7 +82,7 @@ namespace IBCustomerSite.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(billPay);
+            return View(viewModel);
         }
 
         public IActionResult CreatePayee()
@@ -70,6 +95,7 @@ namespace IBCustomerSite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreatePayee([Bind("Name,Address,Suburb,State,Postcode,Phone")] Payee viewPayee)
         {
+
             Payee payee = new Payee
             {
                 Name = viewPayee.Name,

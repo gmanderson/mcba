@@ -1,4 +1,4 @@
-﻿@model Account
+﻿@model IBCustomerSite.ViewModels.BillPayViewModel
 
 @{ ViewData["Title"] = "BillPay"; }
 
@@ -8,3 +8,51 @@
     <a asp-action="Create">Create New BillPay</a>
 </div>
 
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.BillPays[0].BillPayID)</th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillPays[0].Payee.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillPays[0].Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillPays[0].AccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillPays[0].Period)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillPays[0].ScheduleTimeUtc)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.BillPays)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillPayID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Payee.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountNumber)
+            </td>
+            <td>
+                @item.PeriodNames(item.Period)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScheduleTimeUtc)
+            </td>
+        </tr>}
+    </tbody>
+</table>
