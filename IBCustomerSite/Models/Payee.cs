@@ -29,7 +29,7 @@ namespace IBCustomerSite.Models
         [Required]
         public string State { get; set; }
 
-        [RegularExpression(@"[1-9]{4}",
+        [RegularExpression(@"[0-9]{4}",
             ErrorMessage = "Must be a 4 digit number")]
         [StringLength(4)]
         [Required]
