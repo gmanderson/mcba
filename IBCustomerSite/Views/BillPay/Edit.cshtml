@@ -1,0 +1,73 @@
+﻿@model IBCustomerSite.ViewModels.BillPayEditViewModel
+
+@{ ViewData["Title"] = "Edit BillPay"; }
+
+<h1>Edit BillPay</h1>
+
+<h4>BillPay Details</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AccountNumber" class="control-label">Select Account</label>
+                <select name="AccountNumber">
+                    @foreach (var item in Model.Accounts)
+                    {
+        <option asp-for="AccountNumber" value="@item.AccountNumber">@Html.DisplayFor(modelItem => item.AccountNumber)</option>
+}
+
+                </select>
+
+                <span asp-validation-for="Accounts" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PayeeID" class="control-label">Select Payee</label>
+                <select name="PayeeID">
+                    @foreach (var item in Model.Payees)
+                    {
+        <option asp-for="PayeeID" value="@item.PayeeID">@Html.DisplayFor(modelItem => item.Name) @Html.DisplayFor(modelItem => item.Phone)</option>}
+
+                </select>
+                OR <a asp-action="CreatePayee">Create New Payee</a>
+
+                <span asp-validation-for="Payees" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ScheduleTimeUtc" class="control-label"></label>
+                <input asp-for="ScheduleTimeUtc" class="form-control" />
+                <span asp-validation-for="ScheduleTimeUtc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Period" class="control-label"></label>
+                <select name="Period">
+                    <option asp-for="Period" value="M">Monthly</option>
+                    <option asp-for="Period" value="Q">Quarterly</option>
+                    <option asp-for="Period" value="Y">Yearly</option>
+                    <option asp-for="Period" value="O">One-off</option>
+                </select>
+                <span asp-validation-for="Period" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Accounts" value=@Model.Accounts />
+                <input type="hidden" asp-for="Payees" value=@Model.Payees />
+                <input type="hidden" asp-for="BillPayID" value=@Model.BillPayID />
+                <input type="submit" asp-action="Edit" value="Confirm Edit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List of BillPays</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

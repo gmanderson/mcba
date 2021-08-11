@@ -28,7 +28,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.BillPays[0].ScheduleTimeUtc)
             </th>
-            <th></th>
+            <th>
+            </th>
+            <th>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -52,6 +55,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ScheduleTimeUtc)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.BillPayID">Modify</a>
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.BillPayID">Cancel</a>
             </td>
         </tr>}
     </tbody>
