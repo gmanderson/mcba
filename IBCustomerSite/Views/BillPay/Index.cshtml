@@ -62,6 +62,12 @@
             <td>
                 <a asp-action="Delete" asp-route-id="@item.BillPayID">Cancel</a>
             </td>
+            <td>
+                @if (item.HasFailed == true)
+                {
+                    <a asp-action="FailedDetails" asp-route-id="@item.BillPayID" class="btn btn-danger">FAILED</a>
+                }
+            </td>
         </tr>}
     </tbody>
 </table>

@@ -1,0 +1,32 @@
+﻿@model IBCustomerSite.Models.BillPay
+
+@{ ViewData["Title"] = "Reschedule BillPay"; }
+
+<h1>Reschedule BillPay</h1>
+
+<h4>BillPay Details</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Reschedule">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ScheduleTimeUtc" class="control-label"></label>
+                <input asp-for="ScheduleTimeUtc" class="form-control" />
+                <span asp-validation-for="ScheduleTimeUtc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="BillPayID" value=@Model.BillPayID />
+                <input type="submit" asp-action="Reschedule" asp-route-id=@Model.BillPayID value="Confirm Reschedule" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List of BillPays</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

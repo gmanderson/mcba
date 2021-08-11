@@ -1,0 +1,55 @@
+﻿@model IBCustomerSite.Models.BillPay
+
+@{ ViewData["Title"] = "Failed BillPay"; }
+
+<h1>Failed BillPay</h1>
+
+<h4>Failed BillPay Details</h4>
+
+<p>This BillPay transaction failed due to insufficient funds in your account at the time of the scheduled transaction</p>
+<hr />
+
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.AccountNumber)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.AccountNumber)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.PayeeID)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.PayeeID)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Amount)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Amount)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.ScheduleTimeUtc)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.ScheduleTimeUtc)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Period)
+    </dt>
+    <dd class="col-sm-10">
+        @Model.PeriodNames(Model.Period)
+    </dd>
+</dl>
+
+<a asp-action="Delete" asp-route-id="@Model.BillPayID" class="btn btn-danger">Cancel</a>
+<a asp-action="Reschedule" asp-route-id="@Model.BillPayID" class="btn btn-primary">Reschedule</a>
+<a asp-action="TurnFailOff" asp-route-id="@Model.BillPayID" class="btn btn-primary">Try Again</a>
+
+    <div>
+        <a asp-action="Index">Back to List of BillPays</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

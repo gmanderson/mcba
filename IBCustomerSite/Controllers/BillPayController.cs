@@ -73,7 +73,8 @@ namespace IBCustomerSite.Controllers
                 PayeeID = viewModel.PayeeID,
                 Amount = viewModel.Amount,
                 ScheduleTimeUtc = viewModel.ScheduleTimeUtc,
-                Period = viewModel.Period
+                Period = viewModel.Period,
+                HasFailed = false
             };
 
             if (ModelState.IsValid)
@@ -164,7 +165,8 @@ namespace IBCustomerSite.Controllers
                 PayeeID = viewModel.PayeeID,
                 Amount = viewModel.Amount,
                 ScheduleTimeUtc = viewModel.ScheduleTimeUtc,
-                Period = viewModel.Period
+                Period = viewModel.Period,
+                HasFailed = false
             };
 
             if (ModelState.IsValid)
@@ -206,6 +208,88 @@ namespace IBCustomerSite.Controllers
             _context.BillPays.Remove(billPay);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Billpay/FailedDetails/5
+        public async Task<IActionResult> FailedDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var billpay = await _context.BillPays.FindAsync(id);
+            if (billpay == null)
+            {
+                return NotFound();
+            }
+
+            return View(billpay);
+
+        }
+
+        // GET Billpay
+        public async Task<IActionResult> TurnFailOff(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var billpay = await _context.BillPays.FindAsync(id);
+            if (billpay == null)
+            {
+                return NotFound();
+            }
+
+            billpay.HasFailed = false;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Billpay/Reschedule/5
+        public async Task<IActionResult> Reschedule(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var billpay = await _context.BillPays.FindAsync(id);
+            if (billpay == null)
+            {
+                return NotFound();
+            }
+
+            return View(billpay);
+        }
+
+        // POST: Billpay/Reschedule/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Reschedule(int id, [Bind("PayeeID,Amount,ScheduleTimeUtc,Period,BillPayID")] BillPay viewModel)
+        {
+            if (id != viewModel.BillPayID)
+            {
+                return NotFound();
+            }
+
+            var billpay = await _context.BillPays.FindAsync(id);
+            billpay.ScheduleTimeUtc = viewModel.ScheduleTimeUtc;
+            billpay.HasFailed = false;
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(billpay);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+            return View(viewModel);
         }
     }
 }
