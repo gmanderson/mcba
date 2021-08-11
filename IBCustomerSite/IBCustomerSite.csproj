@@ -20,6 +20,7 @@
     <None Remove="Newtonsoft.Json" />
     <None Remove="X.PagedList.Mvc.Core" />
     <None Remove="Views\BillPay\" />
+    <None Remove="BackgroundServices\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
@@ -27,6 +28,7 @@
     <Folder Include="Views\Login\" />
     <Folder Include="Filters\" />
     <Folder Include="Views\BillPay\" />
+    <Folder Include="BackgroundServices\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8" />

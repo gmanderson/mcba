@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using IBCustomerSite.Data;
+using IBCustomerSite.BackgroundServices;
 
 namespace IBCustomerSite
 {
@@ -40,6 +41,9 @@ namespace IBCustomerSite
                 // Make the session cookie essential.
                 options.Cookie.IsEssential = true;
             });
+
+            // Add BillPay background service to automatically run in the background along-side the web-server.
+            services.AddHostedService<BillPayBackgroundService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
