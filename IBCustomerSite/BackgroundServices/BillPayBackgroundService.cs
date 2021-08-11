@@ -47,41 +47,51 @@ namespace IBCustomerSite.BackgroundServices
 
             foreach (var billpay in billpays)
             {
-
-                if(billpay.ScheduleTimeUtc <= DateTime.UtcNow)
+                if(billpay.Amount > billpay.Account.CalculateBalance())
                 {
-                    context.Transactions.Add(
-                        new Transaction
-                        {
-                            TransactionType ='B',
-                            AccountNumber = billpay.AccountNumber,
-                            Amount = billpay.Amount,
-                            TransactionTimeUtc = DateTime.UtcNow
-
-                        });
-
-                    if(billpay.Period == 'M')
-                    {
-                        billpay.ScheduleTimeUtc = DateTime.UtcNow.AddMonths(1);
-                    }
-
-                    if (billpay.Period == 'Q')
-                    {
-                        billpay.ScheduleTimeUtc = DateTime.UtcNow.AddMonths(3);
-                    }
-
-                    if (billpay.Period == 'Y')
-                    {
-                        billpay.ScheduleTimeUtc = DateTime.UtcNow.AddYears(1);
-                    }
-
-                    if (billpay.Period == 'O')
-                    {
-                        context.BillPays.Remove(billpay);
-                    }
+                    billpay.HasFailed = true;
 
                     await context.SaveChangesAsync();
                 }
+                else
+                {
+                    if ((billpay.ScheduleTimeUtc <= DateTime.UtcNow) && !billpay.HasFailed)
+                    {
+                        context.Transactions.Add(
+                            new Transaction
+                            {
+                                TransactionType = 'B',
+                                AccountNumber = billpay.AccountNumber,
+                                Amount = billpay.Amount,
+                                TransactionTimeUtc = DateTime.UtcNow
+
+                            });
+
+                        if (billpay.Period == 'M')
+                        {
+                            billpay.ScheduleTimeUtc = DateTime.UtcNow.AddMonths(1);
+                        }
+
+                        if (billpay.Period == 'Q')
+                        {
+                            billpay.ScheduleTimeUtc = DateTime.UtcNow.AddMonths(3);
+                        }
+
+                        if (billpay.Period == 'Y')
+                        {
+                            billpay.ScheduleTimeUtc = DateTime.UtcNow.AddYears(1);
+                        }
+
+                        if (billpay.Period == 'O')
+                        {
+                            context.BillPays.Remove(billpay);
+                        }
+
+                        await context.SaveChangesAsync();
+                    }
+                }
+
+                
             }
 
             await context.SaveChangesAsync(cancellationToken);
