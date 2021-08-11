@@ -31,6 +31,9 @@ namespace IBCustomerSite.Models
         [Required]
         public char Period { get; set; }
 
+        [Required]
+        public bool HasFailed { get; set; }
+
         public string PeriodNames(char period)
         {
             switch (period)
