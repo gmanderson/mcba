@@ -45,6 +45,7 @@ namespace AdminWebAPI
             services.AddScoped<AccountManager>();
             services.AddScoped<TransactionManager>();
             services.AddScoped<BillPayManager>();
+            services.AddScoped<PayeeManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
