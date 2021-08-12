@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using IBCustomerSite.Models;
+using AdminWebAPI.Models;
 
-namespace IBCustomerSite.Data
+namespace AdminWebAPI.Data
 {
     public class MCBAContext : DbContext
     {
