@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace IBCustomerSite.Models
 {
@@ -64,6 +65,55 @@ namespace IBCustomerSite.Models
             //}
 
             return balance;
+        }
+
+        public decimal TransactionTotalAtDate(DateTime date)
+        {
+            decimal total = 0;
+
+            Transactions.ToList().ForEach(transaction => {
+                if (transaction.TransactionTimeUtc.Date == date.Date)
+                {
+                    if (transaction.TransactionType == 'D')
+                    {
+                        total += transaction.Amount;
+                    }
+
+                    if (transaction.TransactionType == 'W' ||
+                        transaction.TransactionType == 'S' ||
+                        transaction.TransactionType == 'B')
+                    {
+                        total -= transaction.Amount;
+                    }
+
+                    if (transaction.TransactionType == 'T')
+                    {
+                        // Incoming transfer
+                        if (transaction.DestinationAccountNumber == null)
+                        {
+                            total += transaction.Amount;
+                        }
+                        // Outgoing transfer
+                        else
+                        {
+                            total -= transaction.Amount;
+                        }
+                    }
+                }
+                
+
+            });
+
+            return total;
+        }
+
+        public string AccountTypeName()
+        {
+            if (AccountType == 'S')
+            {
+                return "Savings";
+            }
+            return "Checking";
         }
     }
 

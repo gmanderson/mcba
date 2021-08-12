@@ -299,5 +299,54 @@ namespace IBCustomerSite.Controllers
 
             return View(pagedList);
         }
+
+        public async Task<IActionResult> Chart()
+        {
+            // Get transaction total per day for 30 days
+            var customer = await _context.Customers.FindAsync(CustomerID);
+            List<decimal> dailyTotalsA1 = new List<decimal>();
+            List<decimal> dailyTotalsA2 = new List<decimal>();
+            List<string> dates = new List<string>();
+
+            for (int i = 0; i<30; i++)
+            {
+                dailyTotalsA1.Add(customer.Accounts[0].TransactionTotalAtDate(DateTime.Now.Date.AddDays(-i)));
+                dates.Add(DateTime.Now.Date.AddDays(-i).ToString("dd MMM"));
+                if(customer.Accounts.Count == 2)
+                {
+                    dailyTotalsA2.Add(customer.Accounts[1].TransactionTotalAtDate(DateTime.Now.Date.AddDays(-i)));
+                }
+            }
+
+
+            //List<Transaction> transactions = await _context.Transactions.Where(x => x.AccountNumber == 4100).ToListAsync();
+
+            //List<decimal> amounts = new List<decimal>();
+            //foreach (var transaction in transactions)
+            //{
+            //    amounts.Add(transaction.Amount);
+            //}
+
+
+            // Get balances for pie chart
+            //var customer = await _context.Customers.FindAsync(CustomerID);
+
+            List<decimal> accountBalances = new List<decimal>();
+            List<string> accountNames = new List<string>();
+            foreach (var account in customer.Accounts)
+            {
+                accountNames.Add(account.AccountTypeName());
+                accountBalances.Add(account.CalculateBalance());
+            }
+
+            return View(new ChartViewModel
+            {
+                Dates = dates,
+                DailyTotalsA1 = dailyTotalsA1,
+                DailyTotalsA2 = dailyTotalsA2,
+                AccountBalances = accountBalances,
+                AccountNames = accountNames
+            });
+        }
     }
 }

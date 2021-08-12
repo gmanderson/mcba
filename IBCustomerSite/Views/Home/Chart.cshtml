@@ -1,0 +1,134 @@
+﻿@model IBCustomerSite.ViewModels.ChartViewModel
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
+<div>
+
+    <canvas id="totalValuePieChart" width="300" height="300"></canvas>
+    <script>
+
+    const accountNames = []
+    const accountBalances = []
+
+    @{ foreach (var accountBalance in @Model.AccountBalances)
+        {
+            @:accountBalances.push(@accountBalance)
+        }
+      }
+
+    @{ foreach (var accountName in @Model.AccountNames)
+        {
+            @:accountNames.push("@accountName")
+        }
+      }
+
+    console.log(accountNames)
+
+    var pctx = document.getElementById('totalValuePieChart').getContext('2d');
+                var totalValuePieChart = new Chart(pctx, {
+
+                    type: 'pie',
+                    data: {
+                        labels: accountNames,
+                        datasets: [{
+                            label: 'Portfolio',
+                            data: accountBalances,
+                            backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(54, 162, 235)',
+                            ],
+                            hoverOffset: 4
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    position: 'top',
+                    text: 'Portfolio'
+                },
+                legend: {
+                    display: true,
+                    position: 'right'
+                }
+            },
+
+            responsive: false,
+            maintainAspectRatio: false
+        }
+    });</script>
+
+    <canvas id="myChart" width="600" height="300"></canvas>
+    <script>
+
+        const dailyTotalsA1 = []
+        const dailyTotalsA2 = []
+            const dates = []
+
+            @{ foreach (var dailyTotal in @Model.DailyTotalsA1)
+                {
+                    @:dailyTotalsA1.push(@dailyTotal)
+
+                }
+              }
+                    @{ foreach (var dailyTotal in @Model.DailyTotalsA2)
+                {
+                    @:dailyTotalsA2.push(@dailyTotal)
+
+                }
+              }
+
+                    @{ foreach (var date in @Model.Dates)
+                {
+                    @:dates.push("@date")
+
+                }
+              }
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+                        var myChart = new Chart(ctx, {
+
+                            type: 'bar',
+                            data: {
+
+                                labels: dates,
+                                datasets: [{
+                                    label: accountNames[0],
+                                    data: dailyTotalsA1,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)'
+                                    ],
+                                    borderWidth: 2
+                                },
+                                    {
+                                        label: accountNames[1],
+                                        data: dailyTotalsA2,
+                                        backgroundColor: [
+                                            'rgba(155, 199, 132, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(155, 199, 132, 1)'
+                                        ],
+                                        borderWidth: 2
+                                    }]
+                },
+                            options: {
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        position: 'top',
+                                        text: 'Daily Total Transaction Value'
+                                    }
+                                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                        }
+                    },
+                    responsive: false,
+                    maintainAspectRatio: false
+                }
+            });</script>
+</div>
