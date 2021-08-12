@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AdminWebAPI.Data;
+using AdminWebAPI.Models.DataManagers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,11 +32,14 @@ namespace AdminWebAPI
             services.AddControllers();
 
             services.AddDbContext<MCBAContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("MCBAContext")));
+            {
+                options.UseSqlServer(Configuration.GetConnectionString(nameof(MCBAContext)));
 
+                //// Enable lazy loading.
+                //options.UseLazyLoadingProxies();
+            });
 
-            // MAY NEED TO ADD THIS LATER
-            //services.AddScoped<MovieManager>();
+            services.AddScoped<LoginManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
