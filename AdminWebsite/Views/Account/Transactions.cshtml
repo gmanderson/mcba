@@ -1,0 +1,61 @@
+﻿@model IEnumerable<TransactionDto>
+
+@{ ViewData["Title"] = "My Statements"; }
+
+<h1>Transactions for account</h1>
+
+
+<form asp-action="Transactions" method="get">
+    <div class="form-actions no-color">
+        <p>
+            From date: <input type="date" name="fromDate" value="@ViewData["ToDateFilter"]" />
+            To date: <input type="date" name="toDate" value="@ViewData["ToDateFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Transactions">Clear Filter</a>
+        </p>
+    </div>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(x => x.TransactionTimeUtc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(x => x.TransactionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(x => x.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(x => x.DestinationAccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(x => x.Amount)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(x => item.TransactionTimeUtc)
+    </td>
+    <td>
+        @Html.DisplayFor(x => item.TransactionType)
+    </td>
+    <td>
+        @Html.DisplayFor(x => item.Comment)
+    </td>
+    <td>
+        @Html.DisplayFor(x => item.DestinationAccountNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(x => item.Amount)
+    </td>
+</tr>}
+    </tbody>
+</table>

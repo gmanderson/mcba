@@ -25,6 +25,11 @@ namespace AdminWebAPI.Models.DataManagers
             return _context.Transactions.ToList();
         }
 
+        public IEnumerable<Transaction> GetAll(int id)
+        {
+            return _context.Transactions.Where(x => x.AccountNumber == id).ToList();
+        }
+
         public int Add(Transaction transaction)
         {
             _context.Transactions.Add(transaction);
@@ -48,5 +53,7 @@ namespace AdminWebAPI.Models.DataManagers
 
             return id;
         }
+
+
     }
 }

@@ -29,10 +29,11 @@ namespace AdminWebAPI.Controllers
         }
 
         //// GET api/transaction/5
+        // Returns all transactions in account with ID
         [HttpGet("{id}")]
-        public Transaction Get(int id)
+        public IEnumerable<Transaction> Get(int id)
         {
-            return _repo.Get(id);
+            return _repo.GetAll(id);
         }
 
         //// POST api/transaction

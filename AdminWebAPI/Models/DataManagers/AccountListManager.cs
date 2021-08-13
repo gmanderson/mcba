@@ -15,18 +15,6 @@ namespace AdminWebAPI.Models.DataManagers
             _context = context;
         }
 
-        public AccountList CreateAccountListObject(Account account)
-        {
-            return new AccountList
-            {
-                AccountNumber = account.AccountNumber,
-                AccountType = account.AccountType,
-                CustomerID = account.CustomerID,
-                Balance = CalculateBalance(account.AccountNumber)
-
-            };
-        }
-
         public AccountList Get(int id)
         {
             return CreateAccountListObject(_context.Accounts.Find(id));
@@ -116,6 +104,27 @@ namespace AdminWebAPI.Models.DataManagers
             });
 
             return balance;
+        }
+
+        public string AccountTypeName(char accountType)
+        {
+            if (accountType == 'S')
+            {
+                return "Savings";
+            }
+            return "Checking";
+        }
+
+        public AccountList CreateAccountListObject(Account account)
+        {
+            return new AccountList
+            {
+                AccountNumber = account.AccountNumber,
+                AccountTypeName = AccountTypeName(account.AccountType),
+                CustomerID = account.CustomerID,
+                Balance = CalculateBalance(account.AccountNumber)
+
+            };
         }
     }
 }

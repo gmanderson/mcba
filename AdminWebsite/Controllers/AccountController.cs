@@ -60,6 +60,38 @@ namespace AdminWebsite.Controllers
             return View(account);
         }
 
+        // GET Account/Transactions/{id}
+        public async Task<IActionResult> Transactions(int id, DateTime? fromDate, DateTime? toDate)
+        {
+            var response = await Client.GetAsync($"api/transaction/{id}");
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception();
+
+            // Storing the response details received from web api.
+            var result = await response.Content.ReadAsStringAsync();
+
+            // Deserializing the response received from web api and storing into a variable.
+            var transactions = JsonConvert.DeserializeObject<List<TransactionDto>>(result).OrderByDescending(x => x.TransactionTimeUtc);
+
+            ViewData["FromDateFilter"] = fromDate;
+            ViewData["ToDateFilter"] = toDate;
+            if (fromDate != null && toDate == null)
+            {
+                transactions = transactions.Where(x => (x.TransactionTimeUtc >= fromDate)).OrderByDescending(x => x.TransactionTimeUtc);
+            }
+            if (fromDate == null && toDate != null)
+            {
+                transactions = transactions.Where(x => (x.TransactionTimeUtc.AddDays(-1) <= toDate)).OrderByDescending(x => x.TransactionTimeUtc);
+            }
+
+            if (fromDate != null && toDate != null)
+            {
+                transactions = transactions.Where(x => (x.TransactionTimeUtc >= fromDate) && (x.TransactionTimeUtc.AddDays(-1) <= toDate)).OrderByDescending(x => x.TransactionTimeUtc);
+            }
+            return View(transactions);
+        }
+
         // GET Account/Edit/{id}
         public async Task<IActionResult> Edit(int? id)
         {

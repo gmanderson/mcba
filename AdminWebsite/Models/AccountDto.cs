@@ -26,6 +26,7 @@ namespace AdminWebsite.Models
         public virtual List<BillPayDto> BillPays { get; set; }
 
         public decimal Balance { get; set; }
+        public string AccountTypeName { get; set; }
     }
 
 }

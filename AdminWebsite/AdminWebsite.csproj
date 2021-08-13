@@ -9,13 +9,17 @@
     <None Remove="Views\Customer\" />
     <None Remove="ViewModels\" />
     <None Remove="Views\Account\" />
+    <None Remove="Views\Transaction\" />
+    <None Remove="X.PagedList.Mvc.Core" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.1.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Customer\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\Account\" />
+    <Folder Include="Views\Transaction\" />
   </ItemGroup>
 </Project>

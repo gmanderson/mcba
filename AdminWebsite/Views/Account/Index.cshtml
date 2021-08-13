@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.CustomerID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AccountType)
+                @Html.DisplayNameFor(model => model.AccountTypeName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Balance)
@@ -35,13 +35,13 @@
                 @Html.DisplayFor(modelItem => item.CustomerID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AccountType)
+                @Html.DisplayFor(modelItem => item.AccountTypeName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Balance)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.AccountNumber" class="btn btn-primary">Details</a>
+                <a asp-action="Transactions" asp-route-id="@item.AccountNumber" class="btn btn-primary">Details</a>
             </td>
         </tr>
         }

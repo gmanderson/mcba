@@ -21,6 +21,7 @@ namespace AdminWebAPI.Models
         public int CustomerID { get; set; }
 
         public decimal Balance { get; set; }
+        public string AccountTypeName { get; set; }
     }
 
 }
