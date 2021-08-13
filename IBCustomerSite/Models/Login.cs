@@ -21,5 +21,8 @@ namespace IBCustomerSite.Models
         [StringLength(64)]
         [Required]
         public string PasswordHash { get; set; }
+
+        [Required]
+        public bool IsLocked { get; set; }
     }
 }
