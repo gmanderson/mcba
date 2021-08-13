@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using AdminWebsite.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace AdminWebsite.Controllers
 {
@@ -37,6 +38,44 @@ namespace AdminWebsite.Controllers
             // Deserializing the response received from web api and storing into a variable.
             var customer = JsonConvert.DeserializeObject<CustomerDto>(result);
 
+
+            return View(customer);
+        }
+
+        // GET Customer/Edit/{id}
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var response = await Client.GetAsync($"api/customer/{id}");
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception();
+
+            var result = await response.Content.ReadAsStringAsync();
+            var customer = JsonConvert.DeserializeObject<CustomerDto>(result);
+
+            return View(customer);
+        }
+
+        // POST: Customer/Edit/1
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, CustomerDto customer)
+        {
+            if (id != customer.CustomerID)
+                return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(customer), Encoding.UTF8, "application/json");
+
+                var response = Client.PutAsync($"api/customer/{id}", content).Result;
+
+                if (response.IsSuccessStatusCode)
+                    return RedirectToAction(nameof(Details), new { id = id });
+            }
 
             return View(customer);
         }
