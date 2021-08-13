@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace AdminWebAPI.Models
+namespace AdminWebsite.Models
 {
     public class PayeeDto
     {
