@@ -25,48 +25,6 @@ namespace AdminWebAPI.Models
 
         public virtual List<BillPay> BillPays { get; set; }
 
-
-        public decimal CalculateBalance()
-        {
-            decimal balance = 0;
-            Transactions.ToList().ForEach(transaction => {
-
-                if (transaction.TransactionType == 'D')
-                {
-                    balance += transaction.Amount;
-                }
-
-                if (transaction.TransactionType == 'W' ||
-                    transaction.TransactionType == 'S' ||
-                    transaction.TransactionType == 'B')
-                {
-                    balance -= transaction.Amount;
-                }
-
-                if (transaction.TransactionType == 'T')
-                {
-                    // Incoming transfer
-                    if (transaction.DestinationAccountNumber == null)
-                    {
-                        balance += transaction.Amount;
-                    }
-                    // Outgoing transfer
-                    else
-                    {
-                        balance -= transaction.Amount;
-                    }
-                }
-
-            });
-
-            //foreach(Transaction transaction in Transactions)
-            //{
-            //    balance += transaction.Amount;
-            //}
-
-            return balance;
-        }
-
         public decimal TransactionTotalAtDate(DateTime date)
         {
             decimal total = 0;

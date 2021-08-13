@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using AdminWebsite.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
-using AdminWebsite.ViewModels;
 
 namespace AdminWebsite.Controllers
 {

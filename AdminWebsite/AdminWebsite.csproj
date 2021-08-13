@@ -8,6 +8,7 @@
     <None Remove="Newtonsoft.Json" />
     <None Remove="Views\Customer\" />
     <None Remove="ViewModels\" />
+    <None Remove="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -15,5 +16,6 @@
   <ItemGroup>
     <Folder Include="Views\Customer\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="Views\Account\" />
   </ItemGroup>
 </Project>

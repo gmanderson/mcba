@@ -11,26 +11,26 @@ using Microsoft.AspNetCore.Mvc;
 namespace AdminWebAPI.Controllers
 {
     [Route("api/[controller]")]
-    public class AccountListController : ControllerBase
+    public class AccountController : ControllerBase
     {
-        private readonly AccountListManager _repo;
+        private readonly AccountManager _repo;
 
-        public AccountListController(AccountListManager repo)
+        public AccountController(AccountManager repo)
         {
             _repo = repo;
         }
 
-        // GET: api/accountList
+        // GET: api/account
         // Returns all accounts from db
         [HttpGet]
-        public IEnumerable<AccountList> Get()
+        public IEnumerable<Account> Get()
         {
             return _repo.GetAll();
         }
 
         //// GET api/account/5
         [HttpGet("{id}")]
-        public AccountList Get(int id)
+        public Account Get(int id)
         {
             return _repo.Get(id);
         }
@@ -38,7 +38,7 @@ namespace AdminWebAPI.Controllers
         //// POST api/account
         // Adds new account
         [HttpPost]
-        public void Post([FromBody] AccountList account)
+        public void Post([FromBody] Account account)
         {
             _repo.Add(account);
         }
@@ -46,7 +46,7 @@ namespace AdminWebAPI.Controllers
         //// PUT api/account/5
         // Updates acccount entry
         [HttpPut("{id}")]
-        public void Put([FromBody] AccountList account)
+        public void Put([FromBody] Account account)
         {
             _repo.Update(account.AccountNumber, account);
         }

@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AdminWebsite.Models
+namespace AdminWebAPI.Models
 {
-    public class AccountDto
+    public class AccountList
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Required]
@@ -19,11 +19,6 @@ namespace AdminWebsite.Models
         [ForeignKey("Customer")]
         [Required]
         public int CustomerID { get; set; }
-        public virtual CustomerDto Customer { get; set; }
-
-        public virtual List<TransactionDto> Transactions { get; set; }
-
-        public virtual List<BillPayDto> BillPays { get; set; }
 
         public decimal Balance { get; set; }
     }
