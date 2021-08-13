@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using AdminWebsite.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
+using AdminWebsite.ViewModels;
 
 namespace AdminWebsite.Controllers
 {
@@ -26,6 +27,7 @@ namespace AdminWebsite.Controllers
         // GET Home/Index 
         public async Task<IActionResult> Index()
         {
+            // Retrieve customers from API
             var response = await Client.GetAsync("api/customer");
 
             if (!response.IsSuccessStatusCode)
@@ -36,7 +38,6 @@ namespace AdminWebsite.Controllers
 
             // Deserializing the response received from web api and storing into a list.
             var customers = JsonConvert.DeserializeObject<List<CustomerDto>>(result);
-
 
             return View(customers);
         }

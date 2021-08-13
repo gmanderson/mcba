@@ -16,6 +16,7 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
+                Locked
             </th>
             <th></th>
         </tr>
@@ -29,6 +30,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <input type="checkbox" />
                 </td>
                 <td>
                     <a asp-controller="Customer" asp-action="Details" asp-route-id="@item.CustomerID" class="btn btn-primary">Details</a>

@@ -40,6 +40,8 @@ namespace AdminWebAPI
                 //options.UseLazyLoadingProxies();
             });
 
+            services.AddTransient<MCBAContext>();
+
             services.AddScoped<LoginManager>();
             services.AddScoped<CustomerManager>();
             services.AddScoped<AccountManager>();
