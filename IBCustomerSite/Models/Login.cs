@@ -4,25 +4,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IBCustomerSite.Models
 {
-    public class Login
+    public record Login
     {
         [Column(TypeName = "nchar")]
         [StringLength(8, MinimumLength = 8)]
         [Required]
-        public string LoginID { get; set; }
+        public string LoginID { get; init; }
 
         [ForeignKey("Customer")]
         [Required]
-        public int CustomerID { get; set; }
-        public virtual Customer Customer { get; set; }
+        public int CustomerID { get; init; }
+        public virtual Customer Customer { get; init; }
 
         // MUST STORE SALTED AND HASHED PASSWORD
         [Column(TypeName = "nchar")]
         [StringLength(64)]
         [Required]
-        public string PasswordHash { get; set; }
+        public string PasswordHash { get; init; }
 
         [Required]
-        public bool IsLocked { get; set; }
+        public bool IsLocked { get; init; }
     }
 }

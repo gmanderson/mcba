@@ -64,10 +64,10 @@ namespace IBCustomerSite.Controllers
         [HttpPost]
         public async Task<IActionResult> PasswordChange(PasswordViewModel viewModel)
         {
+            // Uses AsNoTracking so that db context can update db records. Otherwise complains about tracking another object already.
+            Login login = await _context.Logins.AsNoTracking().FirstOrDefaultAsync(x => x.CustomerID.Equals(viewModel.CustomerID));
 
-            Login login = await _context.Logins.FirstOrDefaultAsync(x => x.CustomerID.Equals(viewModel.CustomerID));
-
-            login.PasswordHash = PBKDF2.Hash(viewModel.RawPassword);
+            login = login with { PasswordHash = PBKDF2.Hash(viewModel.RawPassword) };
 
 
             _context.Update(login);

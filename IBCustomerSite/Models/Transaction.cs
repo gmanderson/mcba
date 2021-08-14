@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IBCustomerSite.Models
 {
-    public class Transaction
+    public record Transaction
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]

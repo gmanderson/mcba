@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace IBCustomerSite.Models
 {
 
-    public class BillPay
+    public record BillPay
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]

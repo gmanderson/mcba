@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IBCustomerSite.Models
 {
-    public class Account
+    public record Account
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Required]

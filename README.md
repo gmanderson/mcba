@@ -1,6 +1,19 @@
 # s3318814-a2
 
 #Records
+The records feature has been used in the following models: Login, Customer, Transaction, Account, Payee, BillPay.
+In the LoginController, the PasswordChange method has an example of mutating the record.
+
+As a record is intended to be used with read-only data, it offers performance gains as the same memory address is simply passed around (pass by reference). Its immutability means that it reduces the chance of data being accidentally changed which could produce bugs. Although primarily used for immutable objects, records do allow for mutation through creating a new instance. It simplifies the process as it automatically copies properties from the old instance to the new one and updates the properties being changed. This forces the programmer to be deliberate about any changes made and means they only need write code for the properties being changed. Its use with the models reflects that care should be taken in manipulating the data so as to avoid unnecessary mistakes and changes being written back to the database.
+
+
+
+Target something that you know doesn't change once create or rarely changes once created.
+
+Method can't corrupt the data as it is immutable.
+
+A b = a with { Name = Bolger }; new instance of A as b. All data copied with the new Name. 
+ 
 
 #PART 4 - Charts (Task L)
 This task has been attempted.
