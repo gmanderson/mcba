@@ -43,7 +43,11 @@ namespace AdminWebAPI.Models.DataManagers
 
         public int Update(int id, BillPay billPay)
         {
-            _context.Update(billPay);
+            var newBillPay = _context.BillPays.Find(id);
+
+            newBillPay.IsBlocked = billPay.IsBlocked;
+
+            _context.Update(newBillPay);
             _context.SaveChanges();
 
             return id;

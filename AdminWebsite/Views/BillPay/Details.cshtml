@@ -1,0 +1,62 @@
+﻿@model BillPayDto
+
+@{ ViewData["Title"] = "BillPay Details"; }
+
+<h1>BillPay Details</h1>
+
+<div>
+    <h4>BillPay</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BillPayID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BillPayID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AccountNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ScheduleTimeUtc)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ScheduleTimeUtc)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Period)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Period)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsBlocked)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsBlocked)
+        </dd>
+    </dl>
+</div>
+<div>
+    <form asp-action="Block">
+        <input type="hidden" asp-for="BillPayID" value=@Model.BillPayID />
+        <input type="hidden" asp-for="BillPayID" value=@Model.AccountNumber />
+        <input type="hidden" asp-for="BillPayID" value=@Model.Account />
+        <input type="hidden" asp-for="BillPayID" value=@Model.Amount />
+        <input type="hidden" asp-for="BillPayID" value=@Model.ScheduleTimeUtc />
+        <input type="hidden" asp-for="BillPayID" value=@Model.Period />
+        <input type="hidden" asp-for="BillPayID" value=@Model.IsBlocked />
+        <input type="submit" asp-action="Block" asp-route-id="@Model.BillPayID" value="Block" /> |
+        <input type="submit" asp-action="Unblock" asp-route-id="@Model.BillPayID" value="Unblock" /> |
+        <a asp-controller="Home" asp-action="Index">Back to List</a>
+    </form>
+</div>

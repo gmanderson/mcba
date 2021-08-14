@@ -24,6 +24,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Period)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsBlocked)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -43,11 +46,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ScheduleTimeUtc)
             </td>
-            <th>
-                @Html.DisplayFor(modelItem => item.Period)
-            </th>
             <td>
-                <a class="btn btn-primary">Details</a>
+                @Html.DisplayFor(modelItem => item.Period)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsBlocked)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.BillPayID" class="btn btn-primary">Details</a>
             </td>
         </tr>
         }

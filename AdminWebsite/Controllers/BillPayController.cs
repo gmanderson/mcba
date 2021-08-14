@@ -41,5 +41,75 @@ namespace AdminWebsite.Controllers
 
             return View(billPays);
         }
+
+        // PUT BillPay/Block
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Block(int id, BillPayDto billPay)
+        {
+            if (id != billPay.BillPayID)
+                return NotFound();
+
+            if (billPay.AccountNumber == 4100)
+                return NotFound();
+
+            billPay.IsBlocked = true;
+
+            if (ModelState.IsValid)
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(billPay), Encoding.UTF8, "application/json");
+
+                var response = Client.PutAsync($"api/billPay/{id}", content).Result;
+
+                if (response.IsSuccessStatusCode)
+                    return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // PUT BillPay/Unblock
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Unblock(int id, BillPayDto billPay)
+        {
+            if (id != billPay.BillPayID)
+                return NotFound();
+
+            if (billPay.AccountNumber == 4100)
+                return NotFound();
+
+            billPay.IsBlocked = false;
+
+            if (ModelState.IsValid)
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(billPay), Encoding.UTF8, "application/json");
+
+                var response = Client.PutAsync($"api/billPay/{id}", content).Result;
+
+                if (response.IsSuccessStatusCode)
+                    return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET BillPay/Details/{id}
+        public async Task<IActionResult> Details(int id)
+        {
+            var response = await Client.GetAsync($"api/billPay/{id}");
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception();
+
+            // Storing the response details received from web api.
+            var result = await response.Content.ReadAsStringAsync();
+
+            // Deserializing the response received from web api and storing into a variable.
+            var billPay = JsonConvert.DeserializeObject<BillPayDto>(result);
+
+
+            return View(billPay);
+        }
     }
 }
