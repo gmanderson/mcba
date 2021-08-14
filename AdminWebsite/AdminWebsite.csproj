@@ -11,6 +11,7 @@
     <None Remove="Views\Account\" />
     <None Remove="Views\Transaction\" />
     <None Remove="X.PagedList.Mvc.Core" />
+    <None Remove="Views\BillPay\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -21,5 +22,6 @@
     <Folder Include="ViewModels\" />
     <Folder Include="Views\Account\" />
     <Folder Include="Views\Transaction\" />
+    <Folder Include="Views\BillPay\" />
   </ItemGroup>
 </Project>

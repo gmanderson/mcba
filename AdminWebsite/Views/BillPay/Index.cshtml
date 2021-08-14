@@ -1,0 +1,58 @@
+﻿@model IEnumerable<BillPayDto>
+
+@{
+    ViewData["Title"] = "BillPay Page";
+}
+
+@*<h1>Welcome @Model.Name</h1>*@
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BillPayID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ScheduleTimeUtc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Period)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillPayID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScheduleTimeUtc)
+            </td>
+            <th>
+                @Html.DisplayFor(modelItem => item.Period)
+            </th>
+            <td>
+                <a class="btn btn-primary">Details</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+
