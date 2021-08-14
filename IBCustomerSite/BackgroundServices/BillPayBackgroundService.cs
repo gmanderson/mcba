@@ -47,7 +47,8 @@ namespace IBCustomerSite.BackgroundServices
 
             foreach (var billpay in billpays)
             {
-                if(billpay.Amount > billpay.Account.CalculateBalance())
+
+                if((billpay.Amount > billpay.Account.CalculateBalance()) && !billpay.IsBlocked)
                 {
                     billpay.HasFailed = true;
 
@@ -55,7 +56,7 @@ namespace IBCustomerSite.BackgroundServices
                 }
                 else
                 {
-                    if ((billpay.ScheduleTimeUtc <= DateTime.UtcNow) && !billpay.HasFailed)
+                    if ((billpay.ScheduleTimeUtc <= DateTime.UtcNow) && !billpay.HasFailed && !billpay.IsBlocked)
                     {
                         context.Transactions.Add(
                             new Transaction
@@ -69,17 +70,17 @@ namespace IBCustomerSite.BackgroundServices
 
                         if (billpay.Period == 'M')
                         {
-                            billpay.ScheduleTimeUtc = DateTime.UtcNow.AddMonths(1);
+                            billpay.ScheduleTimeUtc = billpay.ScheduleTimeUtc.AddMonths(1);
                         }
 
                         if (billpay.Period == 'Q')
                         {
-                            billpay.ScheduleTimeUtc = DateTime.UtcNow.AddMonths(3);
+                            billpay.ScheduleTimeUtc = billpay.ScheduleTimeUtc.AddMonths(3);
                         }
 
                         if (billpay.Period == 'Y')
                         {
-                            billpay.ScheduleTimeUtc = DateTime.UtcNow.AddYears(1);
+                            billpay.ScheduleTimeUtc = billpay.ScheduleTimeUtc.AddYears(1);
                         }
 
                         if (billpay.Period == 'O')
