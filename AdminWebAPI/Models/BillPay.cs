@@ -34,6 +34,9 @@ namespace AdminWebAPI.Models
         [Required]
         public bool HasFailed { get; set; }
 
+        [Required]
+        public bool IsBlocked { get; set; }
+
         public string PeriodNames(char period)
         {
             switch (period)

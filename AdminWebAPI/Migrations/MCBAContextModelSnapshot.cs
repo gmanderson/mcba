@@ -54,6 +54,9 @@ namespace AdminWebAPI.Migrations
                     b.Property<bool>("HasFailed")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsBlocked")
+                        .HasColumnType("bit");
+
                     b.Property<int>("PayeeID")
                         .HasColumnType("int");
 

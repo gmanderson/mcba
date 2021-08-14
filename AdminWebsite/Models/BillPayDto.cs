@@ -33,5 +33,8 @@ namespace AdminWebsite.Models
 
         [Required]
         public bool HasFailed { get; set; }
+
+        [Required]
+        public bool IsBlocked { get; set; }
     }
 }
