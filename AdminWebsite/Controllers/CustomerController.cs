@@ -79,6 +79,52 @@ namespace AdminWebsite.Controllers
 
             return View(customer);
         }
+
+        // POST: Customer/Lock/1
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Lock(int id, CustomerDto customer)
+        {
+            if (id != customer.CustomerID)
+                return NotFound();
+
+            customer.IsLocked = true;
+
+            if (ModelState.IsValid)
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(customer), Encoding.UTF8, "application/json");
+
+                var response = Client.PutAsync($"api/customerLock/{id}", content).Result;
+
+                if (response.IsSuccessStatusCode)
+                    return RedirectToAction(nameof(Details), new { id = id });
+            }
+
+            return RedirectToAction(nameof(Details), new { id = id });
+        }
+
+        // POST: Customer/Unlock/1
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Unlock(int id, CustomerDto customer)
+        {
+            if (id != customer.CustomerID)
+                return NotFound();
+
+            customer.IsLocked = false;
+
+            if (ModelState.IsValid)
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(customer), Encoding.UTF8, "application/json");
+
+                var response = Client.PutAsync($"api/customerLock/{id}", content).Result;
+
+                if (response.IsSuccessStatusCode)
+                    return RedirectToAction("Index", "Home");
+            }
+
+            return RedirectToAction(nameof(Details), new { id = id });
+        }
     }
 
 

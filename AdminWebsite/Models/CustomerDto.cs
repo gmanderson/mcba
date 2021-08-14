@@ -43,5 +43,7 @@ namespace AdminWebsite.Models
         public string Mobile { get; set; }
 
         public virtual List<AccountDto> Accounts { get; set; }
+
+        public bool IsLocked { get; set; }
     }
 }

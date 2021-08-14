@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using AdminWebsite.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace AdminWebsite.Controllers
 {
@@ -27,7 +28,7 @@ namespace AdminWebsite.Controllers
         public async Task<IActionResult> Index()
         {
             // Retrieve customers from API
-            var response = await Client.GetAsync("api/customer");
+            var response = await Client.GetAsync("api/customerLock");
 
             if (!response.IsSuccessStatusCode)
                 throw new Exception();
@@ -41,7 +42,7 @@ namespace AdminWebsite.Controllers
             return View(customers);
         }
 
-        public IActionResult Privacy()
+    public IActionResult Privacy()
         {
             return View();
         }

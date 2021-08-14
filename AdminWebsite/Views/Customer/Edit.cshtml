@@ -52,6 +52,30 @@
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
+        <form asp-action="Lock" asp-route-id=@Model.CustomerID>
+            <input type="hidden" asp-for="CustomerID" />
+            <input type="hidden" asp-for="Name" class="form-control" />
+            <input type="hidden" asp-for="TFN" class="form-control" />
+            <input type="hidden" asp-for="Address" class="form-control" />
+            <input type="hidden" asp-for="Suburb" class="form-control" />
+            <input type="hidden" asp-for="State" class="form-control" />
+            <input type="hidden" asp-for="Postcode" class="form-control" />
+            <input type="hidden" asp-for="Mobile" class="form-control" />
+            <input type="hidden" asp-for="IsLocked" class="form-control" />
+            <input type="submit" value="Lock" class="btn btn-primary" />
+        </form>
+        <form asp-action="Unlock" asp-route-id=@Model.CustomerID>
+            <input type="hidden" asp-for="CustomerID" />
+            <input type="hidden" asp-for="Name" class="form-control" />
+            <input type="hidden" asp-for="TFN" class="form-control" />
+            <input type="hidden" asp-for="Address" class="form-control" />
+            <input type="hidden" asp-for="Suburb" class="form-control" />
+            <input type="hidden" asp-for="State" class="form-control" />
+            <input type="hidden" asp-for="Postcode" class="form-control" />
+            <input type="hidden" asp-for="Mobile" class="form-control" />
+            <input type="hidden" asp-for="IsLocked" class="form-control" />
+            <input type="submit" value="Unlock" class="btn btn-primary" />
+        </form>
     </div>
 </div>
 
