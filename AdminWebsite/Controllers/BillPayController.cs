@@ -9,6 +9,7 @@ using AdminWebsite.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
+using IBCustomerSite.Filters;
 
 namespace AdminWebsite.Controllers
 {
@@ -24,7 +25,8 @@ namespace AdminWebsite.Controllers
             _clientFactory = clientFactory;
         }
 
-        // GET BillPay/Index 
+        // GET BillPay/Index
+        [AuthorizeCustomer]
         public async Task<IActionResult> Index()
         {
             // Retrieve customers from API
@@ -45,6 +47,7 @@ namespace AdminWebsite.Controllers
         // PUT BillPay/Block
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeCustomer]
         public IActionResult Block(int id, BillPayDto billPay)
         {
             if (id != billPay.BillPayID)
@@ -71,6 +74,7 @@ namespace AdminWebsite.Controllers
         // PUT BillPay/Unblock
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeCustomer]
         public IActionResult Unblock(int id, BillPayDto billPay)
         {
             if (id != billPay.BillPayID)
@@ -95,6 +99,7 @@ namespace AdminWebsite.Controllers
         }
 
         // GET BillPay/Details/{id}
+        [AuthorizeCustomer]
         public async Task<IActionResult> Details(int id)
         {
             var response = await Client.GetAsync($"api/billPay/{id}");

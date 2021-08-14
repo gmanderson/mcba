@@ -10,7 +10,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using X.PagedList;
 using Microsoft.AspNetCore.Http;
-
+using IBCustomerSite.Filters;
 
 namespace AdminWebsite.Controllers
 {
@@ -26,7 +26,8 @@ namespace AdminWebsite.Controllers
             _clientFactory = clientFactory;
         }
 
-        // GET Transaction/Transactions 
+        // GET Transaction/Transactions
+        [AuthorizeCustomer]
         public async Task<IActionResult> Transactions(decimal? amountLow, decimal? amountHigh)
         {
 
@@ -59,17 +60,6 @@ namespace AdminWebsite.Controllers
 
 
             return View(transactions);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

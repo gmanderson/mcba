@@ -9,6 +9,7 @@ using AdminWebsite.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
+using IBCustomerSite.Filters;
 
 namespace AdminWebsite.Controllers
 {
@@ -24,7 +25,8 @@ namespace AdminWebsite.Controllers
             _clientFactory = clientFactory;
         }
 
-        // GET Home/Index 
+        // GET Home/Index
+        [AuthorizeCustomer]
         public async Task<IActionResult> Index()
         {
             // Retrieve customers from API
@@ -42,7 +44,8 @@ namespace AdminWebsite.Controllers
             return View(customers);
         }
 
-    public IActionResult Privacy()
+        [AuthorizeCustomer]
+        public IActionResult Privacy()
         {
             return View();
         }

@@ -9,6 +9,7 @@ using AdminWebsite.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
+using IBCustomerSite.Filters;
 
 namespace AdminWebsite.Controllers
 {
@@ -25,6 +26,7 @@ namespace AdminWebsite.Controllers
         }
 
         // GET Customer/Details/{id}
+        [AuthorizeCustomer]
         public async Task<IActionResult> Details(int? id)
         {
             var response = await Client.GetAsync($"api/customer/{id}");
@@ -43,6 +45,7 @@ namespace AdminWebsite.Controllers
         }
 
         // GET Customer/Edit/{id}
+        [AuthorizeCustomer]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -62,6 +65,7 @@ namespace AdminWebsite.Controllers
         // POST: Customer/Edit/1
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeCustomer]
         public IActionResult Edit(int id, CustomerDto customer)
         {
             if (id != customer.CustomerID)
@@ -83,6 +87,7 @@ namespace AdminWebsite.Controllers
         // POST: Customer/Lock/1
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeCustomer]
         public IActionResult Lock(int id, CustomerDto customer)
         {
             if (id != customer.CustomerID)
@@ -106,6 +111,7 @@ namespace AdminWebsite.Controllers
         // POST: Customer/Unlock/1
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeCustomer]
         public IActionResult Unlock(int id, CustomerDto customer)
         {
             if (id != customer.CustomerID)
