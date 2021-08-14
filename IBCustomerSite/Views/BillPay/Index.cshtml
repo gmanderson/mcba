@@ -57,7 +57,11 @@
                 @Html.DisplayFor(modelItem => item.ScheduleTimeUtc)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.BillPayID">Modify</a>
+                @if (item.IsBlocked != true)
+                {
+                    <a asp-action="Edit" asp-route-id="@item.BillPayID">Modify</a>
+                }
+                else {<p>BLOCKED</p>}
             </td>
             <td>
                 <a asp-action="Delete" asp-route-id="@item.BillPayID">Cancel</a>
