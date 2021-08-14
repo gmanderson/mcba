@@ -22,6 +22,11 @@ namespace IBCustomerSite.Controllers
         public async Task<IActionResult> Login(string loginID, string password)
         {
             var login = await _context.Logins.FindAsync(loginID);
+
+            if (login.IsLocked)
+            {
+                return RedirectToAction(nameof(Locked));
+            }
             if (login == null || !PBKDF2.Verify(login.PasswordHash, password))
             {
                 ModelState.AddModelError("LoginFailed", "Login failed, please try again.");
@@ -69,6 +74,11 @@ namespace IBCustomerSite.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Details", "Customer");
+        }
+
+        public IActionResult Locked()
+        {
+            return View();
         }
     }
 }
