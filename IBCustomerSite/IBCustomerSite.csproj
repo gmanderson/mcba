@@ -29,6 +29,7 @@
     <Folder Include="Filters\" />
     <Folder Include="Views\BillPay\" />
     <Folder Include="BackgroundServices\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8" />
@@ -43,5 +44,8 @@
     <PackageReference Include="SimpleHashing" Version="2.0.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\images\" />
   </ItemGroup>
 </Project>
