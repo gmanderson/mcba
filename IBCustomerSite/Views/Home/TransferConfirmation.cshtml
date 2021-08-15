@@ -2,10 +2,9 @@
 
 @{ ViewData["Title"] = "Confirmation"; }
 
-<h1>Confirm your transaction</h1>
+<h1>Confirm your Transfer</h1>
 
 <div>
-    <h4>Customer</h4>
     <hr />
 
     <dl class="row">
@@ -41,9 +40,7 @@
         <input type="hidden" asp-for="Amount" value=@Model.Amount />
         <input type="hidden" asp-for="Comment" value=@Model.Comment />
         <input type="submit" value="Confirm" class="btn btn-primary" />
+        <a asp-action="Index" asp-controller="Customer" class="btn btn-primary">Cancel</a>
     </form>
-</div>
-
-<div>
-    <a asp-action="Index" asp-controller="Customer">Cancel</a>
+    
 </div>

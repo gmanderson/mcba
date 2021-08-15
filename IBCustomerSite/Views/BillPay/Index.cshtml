@@ -5,7 +5,7 @@
 <h1>Scheduled BillPay</h1>
 
 <div>
-    <a asp-action="Create">Create New BillPay</a>
+    <a asp-action="Create" class="btn btn-primary">Create New BillPay</a>
 </div>
 
 
@@ -27,10 +27,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.BillPays[0].ScheduleTimeUtc)
-            </th>
-            <th>
-            </th>
-            <th>
             </th>
         </tr>
     </thead>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using IBCustomerSite.Models;
 namespace IBCustomerSite.ViewModels
 {
@@ -7,7 +8,11 @@ namespace IBCustomerSite.ViewModels
         public List<Account> Accounts { get; set; }
         public Account SourceAccount { get; set; }
         public Account DestinationAccount { get; set; }
+
+        [Display(Name = "Account Number")]
         public int SourceAccountNumber { get; set; }
+
+        [Display(Name = "Destination Account")]
         public int DestinationAccountNumber { get; set; }
         public decimal Amount { get; set; }
         public string Comment { get; set; }

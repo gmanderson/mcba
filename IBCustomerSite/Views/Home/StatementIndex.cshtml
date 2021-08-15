@@ -14,7 +14,7 @@
                 <select name="AccountNumber">
                     @foreach (var item in Model)
                     {
-        <option asp-for="AccountNumber" value="@item.AccountNumber">@Html.DisplayFor(modelItem => item.AccountNumber)</option>}
+        <option asp-for="AccountNumber" value="@item.AccountNumber">@Html.DisplayFor(modelItem => item.AccountNumber) @item.AccountTypeName()</option>}
 
                 </select>
 
@@ -25,10 +25,6 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
