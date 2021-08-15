@@ -58,13 +58,16 @@ namespace IBCustomerSite.BackgroundServices
                 {
                     if ((billpay.ScheduleTimeUtc <= DateTime.UtcNow) && !billpay.HasFailed && !billpay.IsBlocked)
                     {
+                        var payee = await context.Payees.FirstAsync(x => x.PayeeID == billpay.PayeeID);
+
                         context.Transactions.Add(
                             new Transaction
                             {
                                 TransactionType = 'B',
                                 AccountNumber = billpay.AccountNumber,
                                 Amount = billpay.Amount,
-                                TransactionTimeUtc = DateTime.UtcNow
+                                TransactionTimeUtc = DateTime.UtcNow,
+                                Comment = payee.Name
 
                             });
 
