@@ -71,13 +71,29 @@ namespace IBCustomerSite.Controllers
             // Uses AsNoTracking so that db context can update db records. Otherwise complains about tracking another object already.
             Login login = await _context.Logins.AsNoTracking().FirstOrDefaultAsync(x => x.CustomerID.Equals(viewModel.CustomerID));
 
-            login = login with { PasswordHash = PBKDF2.Hash(viewModel.RawPassword) };
+            // Check old password is correct
+            if(PBKDF2.Verify(login.PasswordHash, viewModel.OldPassword))
+            {
+                // Check for both new password fields match
+                if(viewModel.RawPassword == viewModel.RawPasswordRepeat)
+                {
+                    login = login with { PasswordHash = PBKDF2.Hash(viewModel.RawPassword) };
+                    _context.Update(login);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Details", "Customer");
+                }
 
+                // Returns to view if new passwords don't match
+                ModelState.AddModelError(nameof(viewModel.RawPasswordRepeat), "Both new passwords don't match. Try again");
+                return View(viewModel);
 
-            _context.Update(login);
-            await _context.SaveChangesAsync();
+            }
+            else
+            {
+                ModelState.AddModelError(nameof(viewModel.OldPassword), "Your password is incorrect");
+                return View(viewModel);
+            }
 
-            return RedirectToAction("Details", "Customer");
         }
 
         public IActionResult Locked()

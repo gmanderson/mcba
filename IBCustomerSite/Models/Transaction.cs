@@ -58,9 +58,9 @@ namespace IBCustomerSite.Models
             }
         }
 
-        public DateTime ReturnLocalTime()
+        public string ReturnLocalTime()
         {
-            return TransactionTimeUtc.ToLocalTime();
+            return TransactionTimeUtc.ToLocalTime().ToString("dd/MM/yyyy");
         }
     }
 
