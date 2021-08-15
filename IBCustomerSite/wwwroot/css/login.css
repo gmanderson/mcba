@@ -1,0 +1,13 @@
+﻿.grid-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.left {
+    grid-column: 1 / 2;
+    max-width: 60%;
+}
+
+.right {
+    grid-column: 2 / 3;
+}

@@ -4,9 +4,8 @@
 }
 
 <h1 class="display-4">Welcome to Most Common Bank of Australia Internet Banking</h1>
-
-<div class="row">
-    <div class="col-md-4">
+<div class="row grid-container">
+    <div class="col-md-4 left">
         <form asp-action="Login">
             <div class="form-group">
                 <label asp-for="LoginID" class="control-label"></label>
@@ -25,7 +24,20 @@
             @Html.ValidationMessage("LoginFailed", new { @class = "text-danger" })
         </form>
     </div>
+
+    <div class="right">
+        <p>
+            We are Australia's leading bank with more branches than there are towns and cities in Australia.
+            Over our 100 year history our acquisitions of Federal Territory Bank and BankEast have enabled us to outgrow our
+            main competitors The Pacific Eastern Banking Conglomerate and National New Zealand Bank. We hope you enjoy
+            banking with us.
+        </p>
+
+        <p>What bank? We're every bank!</p>
+    </div>
 </div>
+
+
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
