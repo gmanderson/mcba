@@ -2,7 +2,7 @@
 
 @{ ViewData["Title"] = "My Statements"; }
 
-<h1>Transactions for account</h1>
+<h1>Transactions for Account @Model.First().AccountNumber</h1>
 
 
 <form asp-action="Transactions" method="get">
@@ -10,8 +10,8 @@
         <p>
             From date: <input type="date" name="fromDate" value="@ViewData["ToDateFilter"]" />
             To date: <input type="date" name="toDate" value="@ViewData["ToDateFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default" /> |
-            <a asp-action="Transactions">Clear Filter</a>
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Transactions" class="btn btn-primary">Clear Filter</a>
         </p>
     </div>
 </form>
@@ -24,7 +24,7 @@
                 @Html.DisplayNameFor(x => x.TransactionTimeUtc)
             </th>
             <th>
-                @Html.DisplayNameFor(x => x.TransactionType)
+                @Html.DisplayNameFor(x => x.TransactionTypeName)
             </th>
             <th>
                 @Html.DisplayNameFor(x => x.Comment)
@@ -42,10 +42,10 @@
         {
 <tr>
     <td>
-        @Html.DisplayFor(x => item.TransactionTimeUtc)
+        @item.TransactionTimeUtc.ToLocalTime()
     </td>
     <td>
-        @Html.DisplayFor(x => item.TransactionType)
+        @Html.DisplayFor(x => item.TransactionTypeName)
     </td>
     <td>
         @Html.DisplayFor(x => item.Comment)

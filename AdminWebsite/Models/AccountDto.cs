@@ -11,9 +11,11 @@ namespace AdminWebsite.Models
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Required]
+        [Display(Name = "Account Number")]
         public int AccountNumber { get; set; }
 
         [Required]
+        [Display(Name = "Account Type")]
         public char AccountType { get; set; }
 
         [ForeignKey("Customer")]
@@ -25,7 +27,10 @@ namespace AdminWebsite.Models
 
         public virtual List<BillPayDto> BillPays { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Balance { get; set; }
+
+        [Display(Name = "Account Type")]
         public string AccountTypeName { get; set; }
     }
 

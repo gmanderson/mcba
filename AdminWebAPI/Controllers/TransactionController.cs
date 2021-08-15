@@ -23,7 +23,7 @@ namespace AdminWebAPI.Controllers
         // GET: api/transaction
         // Returns all transactions from db
         [HttpGet]
-        public IEnumerable<Transaction> Get()
+        public IEnumerable<TransactionDto> Get()
         {
             return _repo.GetAll();
         }
@@ -31,7 +31,7 @@ namespace AdminWebAPI.Controllers
         //// GET api/transaction/5
         // Returns all transactions in account with ID
         [HttpGet("{id}")]
-        public IEnumerable<Transaction> Get(int id)
+        public IEnumerable<TransactionDto> Get(int id)
         {
             return _repo.GetAll(id);
         }
@@ -39,7 +39,7 @@ namespace AdminWebAPI.Controllers
         //// POST api/transaction
         // Adds new transaction
         [HttpPost]
-        public void Post([FromBody] Transaction transaction)
+        public void Post([FromBody] TransactionDto transaction)
         {
             _repo.Add(transaction);
         }
@@ -47,7 +47,7 @@ namespace AdminWebAPI.Controllers
         //// PUT api/transaction/5
         // Updates transaction entry
         [HttpPut("{id}")]
-        public void Put([FromBody] Transaction transaction)
+        public void Put([FromBody] TransactionDto transaction)
         {
             _repo.Update(transaction.TransactionId, transaction);
         }
