@@ -30,12 +30,6 @@ namespace IBCustomerSite.Controllers
         }
 
         [AuthorizeCustomer]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [AuthorizeCustomer]
         public IActionResult Privacy()
         {
             return View();
@@ -70,6 +64,27 @@ namespace IBCustomerSite.Controllers
         // POST - DEPOSIT
         [AuthorizeCustomer]
         [HttpPost]
+        public async Task<IActionResult> DepositConfirmationSave(DepositViewModel viewModel)
+        {
+            viewModel.Account = await _context.Accounts.FindAsync(viewModel.AccountNumber);
+
+            viewModel.Account.Transactions.Add(
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    Amount = viewModel.Amount,
+                    TransactionTimeUtc = DateTime.UtcNow,
+                    Comment = viewModel.Comment
+                });
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index), nameof(Customer));
+        }
+
+        // POST - DEPOSIT
+        [AuthorizeCustomer]
+        [HttpPost]
         public async Task<IActionResult> Deposit(DepositViewModel viewModel)
         {
             viewModel.Account = await _context.Accounts.FindAsync(viewModel.AccountNumber);
@@ -85,20 +100,15 @@ namespace IBCustomerSite.Controllers
             //    return View(viewModel);
             //}
 
-            // Note this code could be moved out of the controller, e.g., into the Model.
-
-            viewModel.Account.Transactions.Add(
-                new Transaction
-                {
-                    TransactionType = 'D',
-                    Amount = viewModel.Amount,
-                    TransactionTimeUtc = DateTime.UtcNow,
-                    Comment = viewModel.Comment
-                });
-
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
+            // Passes data to confirmation
+            return RedirectToAction(nameof(DepositConfirmation), new
+            {
+                Accounts = viewModel.Accounts,
+                Account = viewModel.Account,
+                AccountNumber = viewModel.AccountNumber,
+                Amount = viewModel.Amount,
+                Comment = viewModel.Comment
+            });
         }
 
         // GET WITHDRAWAL
@@ -121,41 +131,21 @@ namespace IBCustomerSite.Controllers
             return View(viewModel);
         }
 
-
-        // POST - WITHDRAWAL
+        // POST CONFIRMATION
         [AuthorizeCustomer]
         [HttpPost]
-        public async Task<IActionResult> Withdrawal(DepositViewModel viewModel)
+        public async Task<IActionResult> WithdrawalConfirmationSave(DepositViewModel viewModel)
         {
             viewModel.Account = await _context.Accounts.FindAsync(viewModel.AccountNumber);
 
-            if (viewModel.Amount <= 0)
-            {
-                ModelState.AddModelError(nameof(viewModel.Amount), "Amount must be positive.");
-                return View(viewModel);
-            }
-            if (viewModel.HasAdequateBalance(viewModel.Amount)) // NEED TO INCLUDE SERVICE FEE
-            {
-                ModelState.AddModelError(nameof(viewModel.Amount), "Amount must not exceed available balance.");
-                return View(viewModel);
-            }
-
-            //if (viewModel.Amount.HasMoreThanTwoDecimalPlaces())
-            //{
-            //    ModelState.AddModelError(nameof(viewModel.Amount), "Amount cannot have more than 2 decimal places.");
-            //    return View(viewModel);
-            //}
-
-            // Note this code could be moved out of the controller, e.g., into the Model.
-
             viewModel.Account.Transactions.Add(
-                new Transaction
-                {
-                    TransactionType = 'W',
-                    Amount = viewModel.Amount,
-                    TransactionTimeUtc = DateTime.UtcNow,
-                    Comment = viewModel.Comment
-                });
+    new Transaction
+    {
+        TransactionType = 'W',
+        Amount = viewModel.Amount,
+        TransactionTimeUtc = DateTime.UtcNow,
+        Comment = viewModel.Comment
+    });
 
             if (viewModel.HasServiceCharge())
             {
@@ -171,7 +161,46 @@ namespace IBCustomerSite.Controllers
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), nameof(Customer));
+        }
+
+
+        // POST - WITHDRAWAL
+        [AuthorizeCustomer]
+        [HttpPost]
+        public async Task<IActionResult> Withdrawal(DepositViewModel viewModel)
+        {
+            viewModel.Account = await _context.Accounts.FindAsync(viewModel.AccountNumber);
+            var customer = await _context.Customers.FindAsync(CustomerID);
+            viewModel.Accounts = customer.Accounts;
+
+            if (viewModel.Amount <= 0)
+            {
+                ModelState.AddModelError(nameof(viewModel.Amount), "Amount must be positive.");
+                return View(viewModel);
+            }
+            if (viewModel.HasAdequateBalance(viewModel.Amount))
+            {
+                ModelState.AddModelError(nameof(viewModel.Amount), "Amount must not exceed available balance.");
+                return View(viewModel);
+            }
+
+            //if (viewModel.Amount.HasMoreThanTwoDecimalPlaces())
+            //{
+            //    ModelState.AddModelError(nameof(viewModel.Amount), "Amount cannot have more than 2 decimal places.");
+            //    return View(viewModel);
+            //}
+
+            // Note this code could be moved out of the controller, e.g., into the Model.
+
+            // Passes data to confirmation
+            return RedirectToAction(nameof(WithdrawalConfirmation), new {
+                        Accounts = viewModel.Accounts,
+                        Account = viewModel.Account,
+                        AccountNumber = viewModel.AccountNumber,
+                        Amount =viewModel.Amount,
+                        Comment = viewModel.Comment
+            });
         }
 
         // GET TRANSFER
@@ -194,33 +223,14 @@ namespace IBCustomerSite.Controllers
             return View(viewModel);
         }
 
-
-        // POST - TRANSFER
+        // POST CONFIRMATION
         [AuthorizeCustomer]
         [HttpPost]
-        public async Task<IActionResult> Transfer(TransferViewModel viewModel)
+        public async Task<IActionResult> TransferConfirmationSave(TransferViewModel viewModel)
         {
             viewModel.SourceAccount = await _context.Accounts.FindAsync(viewModel.SourceAccountNumber);
             viewModel.DestinationAccount = await _context.Accounts.FindAsync(viewModel.DestinationAccountNumber);
 
-            if (viewModel.Amount <= 0)
-            {
-                ModelState.AddModelError(nameof(viewModel.Amount), "Amount must be positive.");
-                return View(viewModel);
-            }
-            if (viewModel.HasAdequateBalance(viewModel.Amount)) // NEED TO INCLUDE SERVICE FEE
-            {
-                ModelState.AddModelError(nameof(viewModel.Amount), "Amount must not exceed available balance.");
-                return View(viewModel);
-            }
-
-            //if (viewModel.Amount.HasMoreThanTwoDecimalPlaces())
-            //{
-            //    ModelState.AddModelError(nameof(viewModel.Amount), "Amount cannot have more than 2 decimal places.");
-            //    return View(viewModel);
-            //}
-
-            // Note this code could be moved out of the controller, e.g., into the Model.
 
             viewModel.SourceAccount.Transactions.Add(
                 new Transaction
@@ -235,11 +245,11 @@ namespace IBCustomerSite.Controllers
             viewModel.DestinationAccount.Transactions.Add(
                 new Transaction
                 {
-                TransactionType = 'T',
-                Amount = viewModel.Amount,
-                TransactionTimeUtc = DateTime.UtcNow,
-                Comment = viewModel.Comment
-             });
+                    TransactionType = 'T',
+                    Amount = viewModel.Amount,
+                    TransactionTimeUtc = DateTime.UtcNow,
+                    Comment = viewModel.Comment
+                });
 
             if (viewModel.HasServiceCharge())
             {
@@ -256,8 +266,63 @@ namespace IBCustomerSite.Controllers
 
             await _context.SaveChangesAsync();
 
+            return RedirectToAction(nameof(Index), nameof(Customer));
+        }
 
-            return RedirectToAction(nameof(Index));
+
+        // POST - TRANSFER
+        [AuthorizeCustomer]
+        [HttpPost]
+        public async Task<IActionResult> Transfer(TransferViewModel viewModel)
+        {
+            viewModel.SourceAccount = await _context.Accounts.FindAsync(viewModel.SourceAccountNumber);
+            viewModel.DestinationAccount = await _context.Accounts.FindAsync(viewModel.DestinationAccountNumber);
+
+            var customer = await _context.Customers.FindAsync(CustomerID);
+            viewModel.Accounts = customer.Accounts;
+
+            if (viewModel.Amount <= 0)
+            {
+                ModelState.AddModelError(nameof(viewModel.Amount), "Amount must be positive.");
+                return View(viewModel);
+            }
+            if (viewModel.HasAdequateBalance(viewModel.Amount))
+            {
+                ModelState.AddModelError(nameof(viewModel.Amount), "Amount must not exceed available balance.");
+                return View(viewModel);
+            }
+
+            if (viewModel.DestinationAccountNumber == viewModel.SourceAccountNumber)
+            {
+                ModelState.AddModelError(nameof(viewModel.DestinationAccountNumber), "Account must be different to source.");
+                return View(viewModel);
+            }
+
+            if (viewModel.DestinationAccountNumber < 1000 || viewModel.DestinationAccountNumber > 9999)
+            {
+                ModelState.AddModelError(nameof(viewModel.DestinationAccountNumber), "Invalid account number. Should be 4 digits.");
+                return View(viewModel);
+            }
+
+            //if (viewModel.Amount.HasMoreThanTwoDecimalPlaces())
+            //{
+            //    ModelState.AddModelError(nameof(viewModel.Amount), "Amount cannot have more than 2 decimal places.");
+            //    return View(viewModel);
+            //}
+
+            // Note this code could be moved out of the controller, e.g., into the Model.
+
+            // Passes data to confirmation
+            return RedirectToAction(nameof(TransferConfirmation), new
+            {
+                Accounts = viewModel.Accounts,
+                SourceAccount = viewModel.SourceAccount,
+                DestinationAccount = viewModel.DestinationAccount,
+                SourceAccountNumber = viewModel.SourceAccountNumber,
+                DestinationAccountNumber = viewModel.DestinationAccountNumber,
+                Amount = viewModel.Amount,
+                Comment = viewModel.Comment
+    });
         }
 
         // GET Statement Index
@@ -299,7 +364,7 @@ namespace IBCustomerSite.Controllers
             var accountJson = HttpContext.Session.GetString(SessionKey_Customer);
             if (accountJson == null)
             {
-                return RedirectToAction(nameof(Index)); // OR return BadRequest();
+                return RedirectToAction(nameof(Index), nameof(Customer)); // OR return BadRequest();
             }
 
             //// Retrieve complex object from the session via JSON deserialisation.

@@ -28,7 +28,7 @@
             @Html.DisplayFor(model => model.Comment)
         </dd>
     </dl>
-    <form asp-action="Withdrawal">
+    <form asp-action="WithdrawalConfirmationSave">
         <input type="hidden" asp-for="Accounts" value=@Model.Accounts />
         <input type="hidden" asp-for="AccountNumber" value=@Model.AccountNumber />
         <input type="hidden" asp-for="Amount" value=@Model.Amount />
@@ -38,5 +38,5 @@
 </div>
 
 <div>
-    <a asp-action="Index">Cancel</a>
+    <a asp-action="Index" asp-controller="Customer">Cancel</a>
 </div>

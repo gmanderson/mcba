@@ -23,6 +23,7 @@ namespace IBCustomerSite.Models
         public virtual Account DestinationAccount { get; set; }
 
         [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         [Required]
         public decimal Amount { get; set; }
 

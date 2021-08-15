@@ -34,7 +34,7 @@
             @Html.DisplayFor(model => model.Comment)
         </dd>
     </dl>
-    <form asp-action="Transfer">
+    <form asp-action="TransferConfirmationSave">
         <input type="hidden" asp-for="Accounts" value=@Model.Accounts />
         <input type="hidden" asp-for="SourceAccountNumber" value=@Model.SourceAccountNumber />
         <input type="hidden" asp-for="DestinationAccountNumber" value=@Model.DestinationAccountNumber />
@@ -45,5 +45,5 @@
 </div>
 
 <div>
-    <a asp-action="Index">Cancel</a>
+    <a asp-action="Index" asp-controller="Customer">Cancel</a>
 </div>

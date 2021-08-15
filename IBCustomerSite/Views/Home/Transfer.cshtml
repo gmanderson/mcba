@@ -43,16 +43,11 @@
 
             <div class="form-group">
                 <input type="hidden" asp-for="Accounts" value=@Model.Accounts />
-                <input type="submit" asp-action="TransferConfirmation" value="Transfer" class="btn btn-primary" />
-                <button asp-action="Index" class="btn btn-primary">Back to List</button>
+                <input type="submit" asp-action="Transfer" value="Transfer" class="btn btn-primary" />
+                <button asp-action="Index" asp-controller="Customer" class="btn btn-primary">Back to List</button>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Confirmation">Confirm Payment</a>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

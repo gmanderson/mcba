@@ -1,8 +1,6 @@
 @model Customer
 
-@{
-    ViewData["Title"] = "Index";
-}
+@{ ViewData["Title"] = "Index"; }
 
 <h1>Welcome @Model.Name</h1>
 
@@ -22,18 +20,18 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Accounts) {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AccountNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AccountType)
-                    </td>
-                    <td>
-                        @item.CalculateBalance()
-                    </td>
-                </tr>
-        }
-            </tbody>
+        @foreach (var item in Model.Accounts)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.AccountNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AccountType)
+    </td>
+    <td>
+        @string.Format("{0:C}", item.CalculateBalance())
+    </td>
+</tr>}
+    </tbody>
 </table>

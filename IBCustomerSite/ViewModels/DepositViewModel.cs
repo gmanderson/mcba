@@ -57,7 +57,13 @@ namespace IBCustomerSite.ViewModels
         // Check if balance is adequate
         public bool HasAdequateBalance(decimal totalAmount)
         {
-            if (totalAmount > (Account.CalculateBalance() - MinimumBalanceByAccount()))
+            decimal totalIncludingCharges = totalAmount;
+
+            if (HasServiceCharge())
+            {
+                totalIncludingCharges += AddAtmWithdrawalFee();
+            }
+            if (totalIncludingCharges > (Account.CalculateBalance() - MinimumBalanceByAccount()))
             {
                 return true;
             }

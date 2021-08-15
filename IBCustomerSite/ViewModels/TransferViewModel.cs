@@ -63,7 +63,13 @@ namespace IBCustomerSite.ViewModels
         // Check if balance is adequate
         public bool HasAdequateBalance(decimal totalAmount)
         {
-            if (totalAmount > (SourceAccount.CalculateBalance() - MinimumBalanceByAccount()))
+            decimal totalIncludingCharges = totalAmount;
+
+            if (HasServiceCharge())
+            {
+                totalIncludingCharges += AddTransferFee();
+            }
+            if (totalIncludingCharges > (SourceAccount.CalculateBalance() - MinimumBalanceByAccount()))
             {
                 return true;
             }
