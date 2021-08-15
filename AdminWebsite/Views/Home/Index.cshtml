@@ -34,9 +34,13 @@
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.IsLocked)
+                        @if (item.IsLocked)
+                        {
+                            <p>LOCKED</p>
+                        }
                     </td>
                     <td>
+                        <a asp-controller="Customer" asp-action="LockedStatus" asp-route-id="@item.CustomerID" class="btn btn-primary">Lock/Unlock</a>
                     </td>
                     <td>
                         <a asp-controller="Customer" asp-action="Details" asp-route-id="@item.CustomerID" class="btn btn-primary">Details</a>
