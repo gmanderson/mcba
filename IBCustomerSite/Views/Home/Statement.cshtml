@@ -31,10 +31,10 @@
         {
 <tr>
     <td>
-        @Html.DisplayFor(x => item.TransactionTimeUtc)
+        @item.ReturnLocalTime()
     </td>
     <td>
-        @Html.DisplayFor(x => item.TransactionType)
+        @item.TransactionTypeName()
     </td>
     <td>
         @Html.DisplayFor(x => item.Comment)
