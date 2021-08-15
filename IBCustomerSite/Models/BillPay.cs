@@ -23,9 +23,11 @@ namespace IBCustomerSite.Models
 
         [Required]
         [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Amount { get; set; }
 
         [Required]
+        [Display(Name = "Scheduled Date")]
         public DateTime ScheduleTimeUtc { get; set; }
 
         [Required]
@@ -37,9 +39,9 @@ namespace IBCustomerSite.Models
         [Required]
         public bool IsBlocked { get; set; }
 
-        public string PeriodNames(char period)
+        public string PeriodNames()
         {
-            switch (period)
+            switch (Period)
             {
                 case 'M':
                     return "Monthly";
@@ -52,6 +54,11 @@ namespace IBCustomerSite.Models
                 default:
                     return "";
             }
+        }
+
+        public string ReturnLocalTimeString()
+        {
+            return ScheduleTimeUtc.ToLocalTime().ToString("dd/MM/yyyy");
         }
     }
 }
