@@ -60,10 +60,6 @@ namespace IBCustomerSite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Accounts,AccountNumber,PayeeID,Amount,ScheduleTimeUtc,Period")] BillPayCreateModel viewModel)
         {
-            //if(viewModel.Payees == null) // NEEDS TO BE FIXED
-            //{
-            //    return RedirectToAction("Privacy", "Home");
-            //}
 
             if (viewModel.Amount <= 0)
             {
@@ -76,7 +72,7 @@ namespace IBCustomerSite.Controllers
                 AccountNumber = viewModel.AccountNumber,
                 PayeeID = viewModel.PayeeID,
                 Amount = viewModel.Amount,
-                ScheduleTimeUtc = viewModel.ScheduleTimeUtc,
+                ScheduleTimeUtc = viewModel.ScheduleTimeUtc.ToUniversalTime(),
                 Period = viewModel.Period,
                 HasFailed = false
             };
@@ -147,7 +143,7 @@ namespace IBCustomerSite.Controllers
                 PayeeID = billpay.PayeeID,
                 Payees = payees,
                 Amount = billpay.Amount,
-                ScheduleTimeUtc = billpay.ScheduleTimeUtc,
+                ScheduleTimeUtc = billpay.ScheduleTimeUtc.ToLocalTime(),
                 Period = billpay.Period,
                 BillPayID = billpay.BillPayID
             });
@@ -172,7 +168,7 @@ namespace IBCustomerSite.Controllers
                 AccountNumber = viewModel.AccountNumber,
                 PayeeID = viewModel.PayeeID,
                 Amount = viewModel.Amount,
-                ScheduleTimeUtc = viewModel.ScheduleTimeUtc,
+                ScheduleTimeUtc = viewModel.ScheduleTimeUtc.ToUniversalTime(),
                 Period = viewModel.Period,
                 HasFailed = false
             };
