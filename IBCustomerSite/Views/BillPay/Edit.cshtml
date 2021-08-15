@@ -11,17 +11,18 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="AccountNumber" class="control-label">Select Account</label>
-                <select name="AccountNumber">
-                    @foreach (var item in Model.Accounts)
-                    {
-        <option asp-for="AccountNumber" value="@item.AccountNumber">@Html.DisplayFor(modelItem => item.AccountNumber)</option>
-}
+                        <label asp-for="AccountNumber" class="control-label">Select Account</label>
+                        <select name="AccountNumber">
+                            @foreach (var item in Model.Accounts)
+                            {
+                <option asp-for="AccountNumber" value="@item.AccountNumber" selected="@(item.AccountNumber == Model.AccountNumber)">@Html.DisplayFor(modelItem => item.AccountNumber)</option>
+        }
 
-                </select>
+                        </select>
 
-                <span asp-validation-for="Accounts" class="text-danger"></span>
-            </div>
+
+                        <span asp-validation-for="Accounts" class="text-danger"></span>
+                    </div>
             <div class="form-group">
                 <label asp-for="PayeeID" class="control-label">Select Payee</label>
                 <select name="PayeeID">
@@ -59,13 +60,10 @@
                 <input type="hidden" asp-for="Payees" value=@Model.Payees />
                 <input type="hidden" asp-for="BillPayID" value=@Model.BillPayID />
                 <input type="submit" asp-action="Edit" value="Confirm Edit" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-primary">Cancel</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List of BillPays</a>
 </div>
 
 @section Scripts {

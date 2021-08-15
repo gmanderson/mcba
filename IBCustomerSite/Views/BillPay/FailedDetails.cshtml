@@ -38,18 +38,16 @@
         @Html.DisplayNameFor(model => model.Period)
     </dt>
     <dd class="col-sm-10">
-        @Model.PeriodNames(Model.Period)
+        @Model.PeriodNames()
     </dd>
 </dl>
 
 <a asp-action="Delete" asp-route-id="@Model.BillPayID" class="btn btn-danger">Cancel</a>
 <a asp-action="Reschedule" asp-route-id="@Model.BillPayID" class="btn btn-primary">Reschedule</a>
 <a asp-action="TurnFailOff" asp-route-id="@Model.BillPayID" class="btn btn-primary">Try Again</a>
+<a asp-action="Index" class="btn btn-primary">Back to List</a>
 
-    <div>
-        <a asp-action="Index">Back to List of BillPays</a>
-    </div>
 
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

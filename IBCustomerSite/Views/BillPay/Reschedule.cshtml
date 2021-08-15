@@ -18,13 +18,10 @@
             <div class="form-group">
                 <input type="hidden" asp-for="BillPayID" value=@Model.BillPayID />
                 <input type="submit" asp-action="Reschedule" asp-route-id=@Model.BillPayID value="Confirm Reschedule" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-primary">Back to List</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List of BillPays</a>
 </div>
 
 @section Scripts {

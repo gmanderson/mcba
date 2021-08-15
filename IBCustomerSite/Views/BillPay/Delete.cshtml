@@ -32,18 +32,18 @@
             @Html.DisplayNameFor(model => model.ScheduleTimeUtc)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ScheduleTimeUtc)
+            @Model.ReturnLocalTimeString()
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Period)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Period)
+            @Model.PeriodNames()
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-primary">Back</a>
     </form>
 </div>

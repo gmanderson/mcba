@@ -51,20 +51,20 @@
                 @Html.DisplayFor(modelItem => item.AccountNumber)
             </td>
             <td>
-                @item.PeriodNames(item.Period)
+                @item.PeriodNames()
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ScheduleTimeUtc)
+                @item.ReturnLocalTimeString()
             </td>
             <td>
                 @if (item.IsBlocked != true)
                 {
-                    <a asp-action="Edit" asp-route-id="@item.BillPayID">Modify</a>
+                    <a asp-action="Edit" asp-route-id="@item.BillPayID" class="btn btn-primary">Modify</a>
                 }
                 else {<p>BLOCKED</p>}
             </td>
             <td>
-                <a asp-action="Delete" asp-route-id="@item.BillPayID">Cancel</a>
+                <a asp-action="Delete" asp-route-id="@item.BillPayID" class="btn btn-danger">Cancel</a>
             </td>
             <td>
                 @if (item.HasFailed == true)

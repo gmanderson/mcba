@@ -11,9 +11,11 @@ namespace IBCustomerSite.Models
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Required]
+        [Display(Name = "Account Number")]
         public int AccountNumber { get; set; }
 
         [Required]
+        [Display(Name = "Account Type")]
         public char AccountType { get; set; }
 
         [ForeignKey("Customer")]
