@@ -44,6 +44,7 @@ namespace AdminWebsite.Models
 
         public virtual List<AccountDto> Accounts { get; set; }
 
+        [Display(Name = "Lock Status")]
         public bool IsLocked { get; set; }
     }
 }
