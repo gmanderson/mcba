@@ -21,7 +21,7 @@ namespace AdminWebAPI.Controllers
         }
 
         // GET: api/customer
-        // Returns all logins from db
+        // Returns all customer from db
         [HttpGet]
         public IEnumerable<Customer> Get()
         {
@@ -29,6 +29,7 @@ namespace AdminWebAPI.Controllers
         }
 
         //// GET api/customer/5
+        /// Returns individual customer by ID
         [HttpGet("{id}")]
         public Customer Get(int id)
         {
@@ -44,7 +45,7 @@ namespace AdminWebAPI.Controllers
         }
 
         //// PUT api/customer/5
-        // Updates customer entry
+        // Updates customer entry by ID
         [HttpPut("{id}")]
         public void Put([FromBody] Customer customer)
         {
@@ -52,6 +53,7 @@ namespace AdminWebAPI.Controllers
         }
 
         //// DELETE api/values/5
+        /// Deletes customer by ID
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

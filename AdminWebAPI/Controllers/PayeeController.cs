@@ -29,6 +29,7 @@ namespace AdminWebAPI.Controllers
         }
 
         //// GET api/payee/5
+        /// Return individual payee by ID
         [HttpGet("{id}")]
         public Payee Get(int id)
         {
@@ -44,7 +45,7 @@ namespace AdminWebAPI.Controllers
         }
 
         //// PUT api/payee/5
-        // Updates payee entry
+        // Updates payee entry by ID
         [HttpPut("{id}")]
         public void Put([FromBody] Payee payee)
         {
@@ -52,6 +53,7 @@ namespace AdminWebAPI.Controllers
         }
 
         //// DELETE api/payee/5
+        /// Deletes payee by ID
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

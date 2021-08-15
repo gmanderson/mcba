@@ -29,28 +29,12 @@ namespace AdminWebAPI.Controllers
         }
 
         //// GET api/login/5
+        /// Returns individual login by ID
         [HttpGet("{id}")]
         public Login Get(string id)
         {
             return _repo.Get(id);
         }
 
-        //// POST api/values
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        //// PUT api/values/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/values/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

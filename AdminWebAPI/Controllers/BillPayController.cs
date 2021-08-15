@@ -21,7 +21,7 @@ namespace AdminWebAPI.Controllers
         }
 
         // GET: api/billPay
-        // Returns all transactions from db
+        // Returns all BillPays from db
         [HttpGet]
         public IEnumerable<BillPay> Get()
         {
@@ -29,6 +29,7 @@ namespace AdminWebAPI.Controllers
         }
 
         //// GET api/billPay/5
+        /// Returns individual BillPay by ID
         [HttpGet("{id}")]
         public BillPay Get(int id)
         {
@@ -44,7 +45,7 @@ namespace AdminWebAPI.Controllers
         }
 
         //// PUT api/billPay/5
-        // Updates billPay entry
+        // Updates billPay entry by ID
         [HttpPut("{id}")]
         public void Put([FromBody] BillPay billPay)
         {
@@ -52,6 +53,7 @@ namespace AdminWebAPI.Controllers
         }
 
         //// DELETE api/billPay/5
+        /// Delete BillPay by ID
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

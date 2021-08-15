@@ -45,7 +45,7 @@ namespace AdminWebAPI.Controllers
         }
 
         //// PUT api/transaction/5
-        // Updates transaction entry
+        // Updates transaction entry by ID
         [HttpPut("{id}")]
         public void Put([FromBody] TransactionDto transaction)
         {
@@ -53,6 +53,7 @@ namespace AdminWebAPI.Controllers
         }
 
         //// DELETE api/transaction/5
+        /// Deletes transaction by ID
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

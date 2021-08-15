@@ -29,6 +29,7 @@ namespace AdminWebAPI.Controllers
         }
 
         //// GET api/account/5
+        /// Returns single account by ID
         [HttpGet("{id}")]
         public Account Get(int id)
         {
@@ -44,7 +45,7 @@ namespace AdminWebAPI.Controllers
         }
 
         //// PUT api/account/5
-        // Updates acccount entry
+        // Updates acccount entry by ID
         [HttpPut("{id}")]
         public void Put([FromBody] Account account)
         {
@@ -52,6 +53,7 @@ namespace AdminWebAPI.Controllers
         }
 
         //// DELETE api/account/5
+        /// Deletes account by ID
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
