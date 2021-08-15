@@ -4,7 +4,7 @@
     ViewData["Title"] = "BillPay Page";
 }
 
-@*<h1>Welcome @Model.Name</h1>*@
+<h1>Scheduled BillPay</h1>
 
 <table class="table">
     <thead>
@@ -44,13 +44,20 @@
                 @Html.DisplayFor(modelItem => item.Amount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ScheduleTimeUtc)
+                @item.ScheduleTimeUtc.ToLocalTime()
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Period)
+                @if (item.Period == 'M')
+                {<p>Monthly</p>}
+                @if (item.Period == 'Q')
+                {<p>Quarterly</p>}
+                @if (item.Period == 'A')
+                {<p>Annually</p>}
+                @if (item.Period == 'O')
+                {<p>One-off</p>}
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsBlocked)
+                @if (item.IsBlocked) { <p>BLOCKED</p>}
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.BillPayID" class="btn btn-primary">Details</a>

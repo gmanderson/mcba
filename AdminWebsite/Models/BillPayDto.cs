@@ -9,10 +9,12 @@ namespace AdminWebsite.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
+        [Display(Name = "BillPay ID")]
         public int BillPayID { get; set; }
 
         [ForeignKey("Account")]
         [Required]
+        [Display(Name = "Account Number")]
         public int AccountNumber { get; set; }
         public virtual AccountDto Account { get; set; }
 
@@ -23,9 +25,11 @@ namespace AdminWebsite.Models
 
         [Required]
         [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Amount { get; set; }
 
         [Required]
+        [Display(Name = "Scheduled Date")]
         public DateTime ScheduleTimeUtc { get; set; }
 
         [Required]
@@ -35,6 +39,8 @@ namespace AdminWebsite.Models
         public bool HasFailed { get; set; }
 
         [Required]
+        [Display(Name = "Block Status")]
+        [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy HH:mm:ss}")]
         public bool IsBlocked { get; set; }
     }
 }

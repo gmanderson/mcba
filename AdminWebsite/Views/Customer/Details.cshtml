@@ -5,7 +5,6 @@
 <h1>Customer Details</h1>
 
 <div>
-    <h4>Customer</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -59,6 +58,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.CustomerID">Edit</a> |
-    <a asp-controller="Home" asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.CustomerID" class="btn btn-primary">Edit</a>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back to List</a>
 </div>

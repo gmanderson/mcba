@@ -2,10 +2,9 @@
 
 @{ ViewData["Title"] = "BillPay Details"; }
 
-<h1>BillPay Details</h1>
+<h1>BillPay Details for @Model.BillPayID</h1>
 
 <div>
-    <h4>BillPay</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -30,19 +29,27 @@
             @Html.DisplayNameFor(model => model.ScheduleTimeUtc)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ScheduleTimeUtc)
+            @Model.ScheduleTimeUtc.ToLocalTime()
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Period)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Period)
+            @if (Model.Period == 'M')
+            {<p>Monthly</p>}
+            @if (Model.Period == 'Q')
+            {<p>Quarterly</p>}
+            @if (Model.Period == 'A')
+            {<p>Annually</p>}
+            @if (Model.Period == 'O')
+            {<p>One-off</p>}
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.IsBlocked)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IsBlocked)
+            @if (Model.IsBlocked)
+            {<p>BLOCKED</p>}
         </dd>
     </dl>
 </div>
@@ -55,8 +62,8 @@
         <input type="hidden" asp-for="BillPayID" value=@Model.ScheduleTimeUtc />
         <input type="hidden" asp-for="BillPayID" value=@Model.Period />
         <input type="hidden" asp-for="BillPayID" value=@Model.IsBlocked />
-        <input type="submit" asp-action="Block" asp-route-id="@Model.BillPayID" value="Block" /> |
-        <input type="submit" asp-action="Unblock" asp-route-id="@Model.BillPayID" value="Unblock" /> |
-        <a asp-controller="Home" asp-action="Index">Back to List</a>
+        <input type="submit" asp-action="Block" asp-route-id="@Model.BillPayID" value="Block" class="btn btn-primary"/>
+        <input type="submit" asp-action="Unblock" asp-route-id="@Model.BillPayID" value="Unblock" class="btn btn-primary"/>
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
     </form>
 </div>
