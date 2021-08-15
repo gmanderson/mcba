@@ -1,0 +1,70 @@
+@model AdminWebsite.Models.CustomerDto
+
+@{ ViewData["Title"] = "Locked Customer"; }
+
+<h1>Locked Status Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomerID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CustomerID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsLocked)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.IsLocked)
+            {
+
+
+                <p>LOCKED</p>
+            }
+            else
+            {
+        <p>UNLOCKED</p>            }
+        </dd>
+    </dl>
+</div>
+<form asp-action="Lock" asp-route-id=@Model.CustomerID class="lock-form">
+    <input type="hidden" asp-for="CustomerID" />
+    <input type="hidden" asp-for="Name" class="form-control" />
+    <input type="hidden" asp-for="TFN" class="form-control" />
+    <input type="hidden" asp-for="Address" class="form-control" />
+    <input type="hidden" asp-for="Suburb" class="form-control" />
+    <input type="hidden" asp-for="State" class="form-control" />
+    <input type="hidden" asp-for="Postcode" class="form-control" />
+    <input type="hidden" asp-for="Mobile" class="form-control" />
+    <input type="hidden" asp-for="IsLocked" class="form-control" />
+    <input type="submit" value="Lock" class="btn btn-primary" />
+</form>
+<br />
+<form asp-action="Unlock" asp-route-id=@Model.CustomerID class="lock-form">
+    <input type="hidden" asp-for="CustomerID" />
+    <input type="hidden" asp-for="Name" class="form-control" />
+    <input type="hidden" asp-for="TFN" class="form-control" />
+    <input type="hidden" asp-for="Address" class="form-control" />
+    <input type="hidden" asp-for="Suburb" class="form-control" />
+    <input type="hidden" asp-for="State" class="form-control" />
+    <input type="hidden" asp-for="Postcode" class="form-control" />
+    <input type="hidden" asp-for="Mobile" class="form-control" />
+    <input type="hidden" asp-for="IsLocked" class="form-control" />
+    <input type="submit" value="Unlock" class="btn btn-primary" />
+</form>
+<br />
+<div>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
