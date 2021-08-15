@@ -102,10 +102,10 @@ namespace AdminWebsite.Controllers
                 var response = Client.PutAsync($"api/customerLock/{id}", content).Result;
 
                 if (response.IsSuccessStatusCode)
-                    return RedirectToAction(nameof(Details), new { id = id });
+                    return RedirectToAction("Index", "Home");
             }
 
-            return RedirectToAction(nameof(Details), new { id = id });
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Customer/Unlock/1
@@ -129,7 +129,26 @@ namespace AdminWebsite.Controllers
                     return RedirectToAction("Index", "Home");
             }
 
-            return RedirectToAction(nameof(Details), new { id = id });
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        // GET Customer/LockedStatus/{id}
+        [AuthorizeCustomer]
+        public async Task<IActionResult> LockedStatus(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var response = await Client.GetAsync($"api/customerLock/{id}");
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception();
+
+            var result = await response.Content.ReadAsStringAsync();
+            var customer = JsonConvert.DeserializeObject<CustomerDto>(result);
+
+            return View(customer);
         }
     }
 
