@@ -17,7 +17,6 @@ namespace IBCustomerSite.Models
         public int CustomerID { get; init; }
         public virtual Customer Customer { get; init; }
 
-        // MUST STORE SALTED AND HASHED PASSWORD
         [Column(TypeName = "nchar")]
         [StringLength(64)]
         [Required]

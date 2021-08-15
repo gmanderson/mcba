@@ -7,6 +7,7 @@ using IBCustomerSite.ViewModels;
 using SimpleHashing;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using IBCustomerSite.Filters;
 
 namespace IBCustomerSite.Controllers
 {
@@ -23,14 +24,16 @@ namespace IBCustomerSite.Controllers
         {
             var login = await _context.Logins.FindAsync(loginID);
 
-            if (login.IsLocked)
-            {
-                return RedirectToAction(nameof(Locked));
-            }
             if (login == null || !PBKDF2.Verify(login.PasswordHash, password))
             {
                 ModelState.AddModelError("LoginFailed", "Login failed, please try again.");
                 return View(new Login { LoginID = loginID });
+            }
+
+            // If login is locked return customer to locked page
+            if (login.IsLocked)
+            {
+                return RedirectToAction(nameof(Locked));
             }
 
             // Login customer.
@@ -61,6 +64,7 @@ namespace IBCustomerSite.Controllers
             });
         }
 
+        [AuthorizeCustomer]
         [HttpPost]
         public async Task<IActionResult> PasswordChange(PasswordViewModel viewModel)
         {

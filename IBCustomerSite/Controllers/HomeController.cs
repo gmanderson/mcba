@@ -11,6 +11,7 @@ using IBCustomerSite.ViewModels;
 using IBCustomerSite.Data;
 using X.PagedList;
 using Newtonsoft.Json;
+using IBCustomerSite.Filters;
 
 namespace IBCustomerSite.Controllers
 {
@@ -28,11 +29,13 @@ namespace IBCustomerSite.Controllers
             _context = context;
         }
 
+        [AuthorizeCustomer]
         public IActionResult Index()
         {
             return View();
         }
 
+        [AuthorizeCustomer]
         public IActionResult Privacy()
         {
             return View();
@@ -45,6 +48,7 @@ namespace IBCustomerSite.Controllers
         }
 
         // GET DEPOSIT
+        [AuthorizeCustomer]
         public async Task<IActionResult> Deposit()
         {
             var customer = await _context.Customers.FindAsync(CustomerID);
@@ -57,12 +61,14 @@ namespace IBCustomerSite.Controllers
         }
 
         // GET CONFIRMATION
+        [AuthorizeCustomer]
         public IActionResult DepositConfirmation(DepositViewModel viewModel)
         {
             return View(viewModel);
         }
 
         // POST - DEPOSIT
+        [AuthorizeCustomer]
         [HttpPost]
         public async Task<IActionResult> Deposit(DepositViewModel viewModel)
         {
@@ -96,6 +102,7 @@ namespace IBCustomerSite.Controllers
         }
 
         // GET WITHDRAWAL
+        [AuthorizeCustomer]
         public async Task<IActionResult> Withdrawal()
         {
             var customer = await _context.Customers.FindAsync(CustomerID);
@@ -108,6 +115,7 @@ namespace IBCustomerSite.Controllers
         }
 
         // GET CONFIRMATION
+        [AuthorizeCustomer]
         public IActionResult WithdrawalConfirmation(DepositViewModel viewModel)
         {
             return View(viewModel);
@@ -115,6 +123,7 @@ namespace IBCustomerSite.Controllers
 
 
         // POST - WITHDRAWAL
+        [AuthorizeCustomer]
         [HttpPost]
         public async Task<IActionResult> Withdrawal(DepositViewModel viewModel)
         {
@@ -166,6 +175,7 @@ namespace IBCustomerSite.Controllers
         }
 
         // GET TRANSFER
+        [AuthorizeCustomer]
         public async Task<IActionResult> Transfer()
         {
             var customer = await _context.Customers.FindAsync(CustomerID);
@@ -178,6 +188,7 @@ namespace IBCustomerSite.Controllers
         }
 
         // GET CONFIRMATION
+        [AuthorizeCustomer]
         public IActionResult TransferConfirmation(TransferViewModel viewModel)
         {
             return View(viewModel);
@@ -185,6 +196,7 @@ namespace IBCustomerSite.Controllers
 
 
         // POST - TRANSFER
+        [AuthorizeCustomer]
         [HttpPost]
         public async Task<IActionResult> Transfer(TransferViewModel viewModel)
         {
@@ -249,6 +261,7 @@ namespace IBCustomerSite.Controllers
         }
 
         // GET Statement Index
+        [AuthorizeCustomer]
         public async Task<IActionResult> StatementIndex()
         {
             var customer = await _context.Customers.FindAsync(CustomerID);
@@ -258,6 +271,7 @@ namespace IBCustomerSite.Controllers
         }
 
         // POST Statement Index
+        [AuthorizeCustomer]
         [HttpPost]
         public async Task<IActionResult> StatementIndexToView(int AccountNumber)
         {
@@ -278,6 +292,7 @@ namespace IBCustomerSite.Controllers
 
 
         // GET Statement
+        [AuthorizeCustomer]
         public async Task<IActionResult> Statement(int? page = 1)
         {
 
@@ -300,6 +315,7 @@ namespace IBCustomerSite.Controllers
             return View(pagedList);
         }
 
+        [AuthorizeCustomer]
         public async Task<IActionResult> Chart()
         {
             // Get transaction total per day for 30 days

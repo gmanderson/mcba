@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using IBCustomerSite.Filters;
 
 namespace IBCustomerSite.Controllers
 {
@@ -21,6 +22,7 @@ namespace IBCustomerSite.Controllers
             _context = context;
         }
 
+        [AuthorizeCustomer]
         public async Task<IActionResult> Index()
         {
             var customer = await _context.Customers.FindAsync(CustomerID);
@@ -39,6 +41,7 @@ namespace IBCustomerSite.Controllers
                 ) ;
         }
 
+        [AuthorizeCustomer]
         public async Task<IActionResult> Create()
         {
             var customer = await _context.Customers.FindAsync(CustomerID);
@@ -52,6 +55,7 @@ namespace IBCustomerSite.Controllers
                 );
         }
 
+        [AuthorizeCustomer]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Accounts,AccountNumber,PayeeID,Amount,ScheduleTimeUtc,Period")] BillPayCreateModel viewModel)
@@ -86,12 +90,14 @@ namespace IBCustomerSite.Controllers
             return View(viewModel);
         }
 
+        [AuthorizeCustomer]
         public IActionResult CreatePayee()
         {
             return View();
         }
 
 
+        [AuthorizeCustomer]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreatePayee([Bind("Name,Address,Suburb,State,Postcode,Phone")] Payee viewPayee)
@@ -117,6 +123,7 @@ namespace IBCustomerSite.Controllers
         }
 
         // GET: Billpay/Edit/5
+        [AuthorizeCustomer]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -149,6 +156,7 @@ namespace IBCustomerSite.Controllers
         // POST: Billpay/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [AuthorizeCustomer]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Accounts,AccountNumber,PayeeID,Amount,ScheduleTimeUtc,Period,BillPayID")] BillPayEditViewModel viewModel)
@@ -182,6 +190,7 @@ namespace IBCustomerSite.Controllers
 
 
         // GET: BillPay/Delete/5
+        [AuthorizeCustomer]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -200,6 +209,7 @@ namespace IBCustomerSite.Controllers
         }
 
         // POST: Billpay/Delete/5
+        [AuthorizeCustomer]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -211,6 +221,7 @@ namespace IBCustomerSite.Controllers
         }
 
         // GET: Billpay/FailedDetails/5
+        [AuthorizeCustomer]
         public async Task<IActionResult> FailedDetails(int? id)
         {
             if (id == null)
@@ -229,6 +240,7 @@ namespace IBCustomerSite.Controllers
         }
 
         // GET Billpay
+        [AuthorizeCustomer]
         public async Task<IActionResult> TurnFailOff(int? id)
         {
             if (id == null)
@@ -250,6 +262,7 @@ namespace IBCustomerSite.Controllers
         }
 
         // GET: Billpay/Reschedule/5
+        [AuthorizeCustomer]
         public async Task<IActionResult> Reschedule(int? id)
         {
             if (id == null)
@@ -269,6 +282,7 @@ namespace IBCustomerSite.Controllers
         // POST: Billpay/Reschedule/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [AuthorizeCustomer]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Reschedule(int id, [Bind("PayeeID,Amount,ScheduleTimeUtc,Period,BillPayID")] BillPay viewModel)
