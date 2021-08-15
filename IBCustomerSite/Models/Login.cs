@@ -9,6 +9,7 @@ namespace IBCustomerSite.Models
         [Column(TypeName = "nchar")]
         [StringLength(8, MinimumLength = 8)]
         [Required]
+        [Display(Name = "Login ID")]
         public string LoginID { get; init; }
 
         [ForeignKey("Customer")]
