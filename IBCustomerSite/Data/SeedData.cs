@@ -64,28 +64,24 @@ namespace IBCustomerSite
                 new Account
                 {
                     AccountNumber = 4100,
-                    //AccountType = AccountType.Saving,
                     AccountType = 'S',
                     CustomerID = 2100
                 },
                 new Account
                 {
                     AccountNumber = 4101,
-                    //AccountType = AccountType.Checking,
                     AccountType = 'C',
                     CustomerID = 2100
                 },
                 new Account
                 {
                     AccountNumber = 4200,
-                    //AccountType = AccountType.Saving,
                     AccountType = 'S',
                     CustomerID = 2200
                 },
                 new Account
                 {
                     AccountNumber = 4300,
-                    //AccountType = AccountType.Checking,
                     AccountType = 'C',
                     CustomerID = 2300
                 });
@@ -93,18 +89,16 @@ namespace IBCustomerSite
             const string openingBalance = "Opening balance";
             const string format = "dd/MM/yyyy hh:mm:ss tt";
             context.Transactions.AddRange(
+                 new Transaction
+                 {
+                     TransactionType = 'D',
+                     AccountNumber = 4100,
+                     Amount = 100,
+                     Comment = openingBalance,
+                     TransactionTimeUtc = DateTime.ParseExact("19/12/2019 08:00:00 PM", format, null)
+                 },
                 new Transaction
                 {
-                    //TransactionType = TransactionType.Deposit,
-                    TransactionType = 'D',
-                    AccountNumber = 4100,
-                    Amount = 100,
-                    Comment = openingBalance,
-                    TransactionTimeUtc = DateTime.ParseExact("19/12/2019 08:00:00 PM", format, null)
-                },
-                new Transaction
-                {
-                    //TransactionType = TransactionType.Deposit,
                     TransactionType = 'D',
                     AccountNumber = 4101,
                     Amount = 500,
@@ -113,7 +107,6 @@ namespace IBCustomerSite
                 },
                 new Transaction
                 {
-                    //TransactionType = TransactionType.Deposit,
                     TransactionType = 'D',
                     AccountNumber = 4200,
                     Amount = 500.95m,
@@ -122,12 +115,347 @@ namespace IBCustomerSite
                 },
                 new Transaction
                 {
-                    //TransactionType = TransactionType.Deposit,
+                    TransactionType = 'D',
+                    AccountNumber = 4100,
+                    Amount = 500.95m,
+                    TransactionTimeUtc = DateTime.ParseExact("15/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4100,
+                    Amount = 500.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("14/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4100,
+                    Amount = 210m,
+                    TransactionTimeUtc = DateTime.ParseExact("13/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4100,
+                    Amount = 40.55m,
+                    TransactionTimeUtc = DateTime.ParseExact("12/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4100,
+                    Amount = 1000.50m,
+                    TransactionTimeUtc = DateTime.ParseExact("11/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4100,
+                    Amount = 100.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("10/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4100,
+                    Amount = 500.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("09/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4100,
+                    Amount = 200.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("08/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4100,
+                    Amount = 300.50m,
+                    TransactionTimeUtc = DateTime.ParseExact("07/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4100,
+                    Amount = 200.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("06/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4100,
+                    Amount = 650.95m,
+                    TransactionTimeUtc = DateTime.ParseExact("05/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4100,
+                    Amount = 500.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("04/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4100,
+                    Amount = 2210m,
+                    TransactionTimeUtc = DateTime.ParseExact("03/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4100,
+                    Amount = 30.55m,
+                    TransactionTimeUtc = DateTime.ParseExact("02/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4100,
+                    Amount = 1000.50m,
+                    TransactionTimeUtc = DateTime.ParseExact("01/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4100,
+                    Amount = 100.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("31/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4100,
+                    Amount = 50.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("30/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4100,
+                    Amount = 200.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("29/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4100,
+                    Amount = 340.50m,
+                    TransactionTimeUtc = DateTime.ParseExact("28/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4100,
+                    Amount = 250.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("26/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4100,
+                    Amount = 700.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("25/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4100,
+                    Amount = 500.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("24/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4100,
+                    Amount = 70.50m,
+                    TransactionTimeUtc = DateTime.ParseExact("23/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4100,
+                    Amount = 25.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("22/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4101,
+                    Amount = 550.95m,
+                    TransactionTimeUtc = DateTime.ParseExact("15/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4101,
+                    Amount = 400.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("14/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4101,
+                    Amount = 2010m,
+                    TransactionTimeUtc = DateTime.ParseExact("13/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4101,
+                    Amount = 45.55m,
+                    TransactionTimeUtc = DateTime.ParseExact("12/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4101,
+                    Amount = 100.50m,
+                    TransactionTimeUtc = DateTime.ParseExact("11/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4101,
+                    Amount = 150.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("10/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4101,
+                    Amount = 500.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("09/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4101,
+                    Amount = 2000.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("08/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4101,
+                    Amount = 300.50m,
+                    TransactionTimeUtc = DateTime.ParseExact("07/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4101,
+                    Amount = 250.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("06/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4101,
+                    Amount = 550.95m,
+                    TransactionTimeUtc = DateTime.ParseExact("05/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4101,
+                    Amount = 400.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("04/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4101,
+                    Amount = 2010m,
+                    TransactionTimeUtc = DateTime.ParseExact("03/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4101,
+                    Amount = 45.55m,
+                    TransactionTimeUtc = DateTime.ParseExact("02/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4101,
+                    Amount = 100.50m,
+                    TransactionTimeUtc = DateTime.ParseExact("01/08/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4101,
+                    Amount = 150.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("31/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4101,
+                    Amount = 500.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("30/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4101,
+                    Amount = 2000.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("29/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4101,
+                    Amount = 300.50m,
+                    TransactionTimeUtc = DateTime.ParseExact("28/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4101,
+                    Amount = 250.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("26/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4101,
+                    Amount = 500.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("25/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4101,
+                    Amount = 2000.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("24/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'W',
+                    AccountNumber = 4101,
+                    Amount = 300.50m,
+                    TransactionTimeUtc = DateTime.ParseExact("23/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
+                    TransactionType = 'D',
+                    AccountNumber = 4101,
+                    Amount = 250.00m,
+                    TransactionTimeUtc = DateTime.ParseExact("22/07/2021 09:00:00 PM", format, null)
+                },
+                new Transaction
+                {
                     TransactionType = 'D',
                     AccountNumber = 4300,
                     Amount = 1250.50m,
                     Comment = "Opening balance",
-                    TransactionTimeUtc = DateTime.ParseExact("19/12/2019 10:00:00 PM", format, null)
+                    TransactionTimeUtc = DateTime.ParseExact("05/12/2019 10:00:00 PM", format, null)
                 });
 
             context.SaveChanges();
