@@ -1,16 +1,13 @@
-# s3318814-a2
+# mcba
 
 Gerard Anderson
-s3318814
-s3318814@student.rmit.edu.au
-
-https://github.com/rmit-wdt-sp2-2021/s3318814-a2
+https://github.com/gmanderson/mcba
 
 # LOGINS
 Login ID				Password
-12345678 (Matthew Bolger) 	abc123
-38074569 (Rodney Cocker) 		ilovermit2020
-17963428 (Shekhar Kalra) 		youWill_n0tGuess-This!
+12345678 (Matthew Bolger) 	abc123  
+38074569 (Rodney Cocker) 		ilovermit2020  
+17963428 (Shekhar Kalra) 		youWill_n0tGuess-This!  
 
 For admin site:
 Username: admin Password: admin
