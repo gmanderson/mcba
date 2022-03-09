@@ -4,12 +4,12 @@ Gerard Anderson
 https://github.com/gmanderson/mcba
 
 # LOGINS
-Login ID				Password
+Login ID				Password  
 12345678 (Matthew Bolger) 	abc123  
 38074569 (Rodney Cocker) 		ilovermit2020  
 17963428 (Shekhar Kalra) 		youWill_n0tGuess-This!  
 
-For admin site:
+For admin site:  
 Username: admin Password: admin
 
 
